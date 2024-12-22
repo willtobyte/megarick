@@ -176,7 +176,7 @@ function setup()
   for _ = 1, 3 do
     local bullet = entitymanager:spawn("bullet")
     bullet.placement:set(-128, -128)
-    bullet:on_collision("octopus", function(self, id)
+    bullet:on_collision("octopus", function(self)
       self.action:unset()
       self.placement:set(-128, -128)
       postalservice:post(Mail.new(octopus, "bullet", "hit"))
@@ -200,6 +200,11 @@ function setup()
   for _ = 1, 9 do
     local jet = entitymanager:spawn("jet")
     jet.placement:set(3000, 3000)
+    jet:on_collision("player", function(self)
+      self.action:unset()
+      self.placement:set(3000, 3000)
+      table.insert(jet_pool, self)
+    end)
     jet:on_update(function(self)
       if self.x <= -300 then
         self.action:unset()
@@ -237,6 +242,8 @@ function loop()
   if statemanager:is_keydown(KeyEvent.space) then
     if not key_states[KeyEvent.space] then
       key_states[KeyEvent.space] = true
+
+      -- player.velocity.y = -360
 
       if octopus.kv:get("life") <= 0 then
         return
