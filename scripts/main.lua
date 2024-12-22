@@ -176,13 +176,11 @@ function setup()
   for _ = 1, 3 do
     local bullet = entitymanager:spawn("bullet")
     bullet.placement:set(-128, -128)
-    bullet:on_update(function(self)
-      if self.x > 1200 then
-        self.action:unset()
-        self.placement:set(-128, -128)
-        postalservice:post(Mail.new(octopus, "bullet", "hit"))
-        table.insert(bullet_pool, self)
-      end
+    bullet:on_collision("octopus", function(self, id)
+      self.action:unset()
+      self.placement:set(-128, -128)
+      postalservice:post(Mail.new(octopus, "bullet", "hit"))
+      table.insert(bullet_pool, self)
     end)
     table.insert(bullet_pool, bullet)
   end
