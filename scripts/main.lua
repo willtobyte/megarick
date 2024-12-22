@@ -172,6 +172,9 @@ function setup()
   player = entitymanager:spawn("player")
   player.action:set("idle")
   player.placement:set(30, 794)
+  player:on_collision("octopus", function(self)
+    -- TODO
+  end)
 
   for _ = 1, 3 do
     local bullet = entitymanager:spawn("bullet")
