@@ -222,6 +222,7 @@ function setup()
     online:set("Online " .. data.clients)
   end)
 
+
   scenemanager:set("ship")
 end
 
@@ -266,9 +267,9 @@ function loop()
         soundmanager:play(sound)
       end
 
-      io:rpc("default.thatsa", {}, function(result)
-        print(JSON.stringify(result))
-      end)
+      -- io:rpc("namespace.func", {}, function(result)
+      --   print(JSON.stringify(result))
+      -- end)
     end
   else
     key_states[KeyEvent.space] = false
