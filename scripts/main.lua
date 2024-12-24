@@ -36,7 +36,7 @@ local behaviors = {
       local offset_x = (math.random(-2, 2)) * 30
       local offset_y = (math.random(-2, 2)) * 30
 
-      explosion.placement:set(octopus.x + offset_x, player.y + offset_y)
+      explosion.placement:set(octopus.x + offset_x, player.y + offset_y - 200)
       explosion.action:set("default")
 
       timemanager:singleshot(math.random(100, 400), function()
@@ -266,7 +266,7 @@ function loop()
         soundmanager:play(sound)
       end
 
-      io:rpc("send", { ["message"] = "hello world from client" }, function(result)
+      io:rpc("default.thatsa", {}, function(result)
         print(JSON.stringify(result))
       end)
     end

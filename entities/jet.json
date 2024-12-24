@@ -1,7 +1,7 @@
 {
 	"spritesheet": "blobs/jet.png",
+	"scale": 4,
 	"size": {
-		"scale": 4,
 		"width": 129,
 		"height": 22
 	},

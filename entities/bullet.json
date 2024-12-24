@@ -1,7 +1,7 @@
 {
 	"spritesheet": "blobs/bullet.png",
+	"scale": 4,
 	"size": {
-		"scale": 4,
 		"width": 40,
 		"height": 40
 	},

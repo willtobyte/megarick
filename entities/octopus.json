@@ -1,7 +1,7 @@
 {
 	"spritesheet": "blobs/octopus.png",
+	"scale": 4,
 	"size": {
-		"scale": 4,
 		"width": 94,
 		"height": 75
 	},
