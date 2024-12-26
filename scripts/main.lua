@@ -220,6 +220,7 @@ function setup()
       self.action:unset()
       self.placement:set(3000, 3000)
       table.insert(jet_pool, self)
+      -- TODO water splash
     end)
     jet:on_update(function(self)
       if self.x <= -300 then
@@ -235,6 +236,7 @@ function setup()
     online:set("Online " .. data.clients)
   end)
 
+  io:connect()
 
   scenemanager:set("ship")
 end
