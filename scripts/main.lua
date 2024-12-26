@@ -16,14 +16,15 @@ local candle2
 local octopus
 local princess
 local player
+local healthbar
 
-local vitality
 local online
 
 local key_states = {}
 local bullet_pool = {}
 local explosion_pool = {}
 local jet_pool = {}
+local segment_pool = {}
 
 local timer = false
 
@@ -82,10 +83,6 @@ function setup()
   soundmanager = engine:soundmanager()
   statemanager = engine:statemanager()
 
-  vitality = overlay:create(WidgetType.label)
-  vitality.font = fontfactory:get("playful")
-  vitality:set("16+", 1350, 620)
-
   online = overlay:create(WidgetType.label)
   online.font = fontfactory:get("fixedsys")
   online:set("", 1600, 15)
@@ -109,7 +106,11 @@ function setup()
     end
   end)
   octopus.kv:subscribe("life", function(value)
-    vitality:set(string.format("%02d-", math.max(value, 0)))
+    if next(segment_pool) then
+      local segment = table.remove(segment_pool, 1)
+      entitymanager:destroy(segment)
+      segment = nil
+    end
 
     if value <= 0 then
       octopus.action:set("dead")
@@ -126,9 +127,13 @@ function setup()
           destroy(bullet_pool)
           destroy(explosion_pool)
           destroy(jet_pool)
+          destroy(segment_pool)
 
           entitymanager:destroy(octopus)
           octopus = nil
+
+          entitymanager:destroy(healthbar)
+          healthbar = nil
 
           entitymanager:destroy(player)
           player = nil
@@ -144,9 +149,6 @@ function setup()
 
           entitymanager:destroy(floor)
           floor = nil
-
-          overlay:destroy(vitality)
-          vitality = nil
 
           overlay:destroy(online)
           online = nil
@@ -175,6 +177,17 @@ function setup()
   player:on_collision("octopus", function(self)
     -- TODO
   end)
+
+  healthbar = entitymanager:spawn("healthbar")
+  healthbar.action:set("default")
+  healthbar.placement:set(1798, 300)
+
+  for i = 1, 16 do
+    local segment = entitymanager:spawn("segment")
+    segment.action:set("default")
+    segment.placement:set(1814, (i * 12) + 306)
+    table.insert(segment_pool, segment)
+  end
 
   for _ = 1, 3 do
     local bullet = entitymanager:spawn("bullet")
@@ -266,10 +279,6 @@ function loop()
         local sound = "bomb" .. math.random(1, 2)
         soundmanager:play(sound)
       end
-
-      -- io:rpc("namespace.func", {}, function(result)
-      --   print(JSON.stringify(result))
-      -- end)
     end
   else
     key_states[KeyEvent.space] = false
