@@ -1,0 +1,23 @@
+{
+	"spritesheet": "blobs/segment.png",
+	"scale": 4,
+	"size": {
+		"width": 8,
+		"height": 2
+	},
+	"animations": {
+		"default": {
+			"frames": [
+				{
+					"rect": {
+						"x": 0,
+						"y": 0,
+						"width": 8,
+						"height": 2
+					},
+					"duration": -1
+				}
+			]
+		}
+	}
+}
