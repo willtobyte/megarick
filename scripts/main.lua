@@ -115,7 +115,7 @@ function setup()
     if value <= 0 then
       octopus.action:set("dead")
       if not timer then
-        timemanager:singleshot(3000, function()
+        timemanager:singleshot(10, function()
           local function destroy(pool)
             for i = #pool, 1, -1 do
               entitymanager:destroy(pool[i])
