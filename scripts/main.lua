@@ -114,6 +114,9 @@ function setup()
 
     if value <= 0 then
       octopus.action:set("dead")
+
+      io:rpc("score.incr", {}, nil)
+
       if not timer then
         timemanager:singleshot(3000, function()
           local function destroy(pool)
