@@ -115,7 +115,7 @@ function setup()
     if value <= 0 then
       octopus.action:set("dead")
 
-      io:rpc("score.incr")
+      io:rpc("octopus.death.incr")
 
       if not timer then
         timemanager:singleshot(3000, function()
