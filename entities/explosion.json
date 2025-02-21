@@ -1,85 +1,69 @@
 {
-	"spritesheet": "blobs/explosion.png",
-	"scale": 6,
-	"size": {
-		"width": 52,
-		"height": 72
-	},
-	"animations": {
-		"default": {
-			"frames": [
-				{
-					"rect": {
-						"x": 1,
-						"y": 1,
-						"width": 52,
-						"height": 72
-					},
-					"duration": 120
-				},
-				{
-					"rect": {
-						"x": 1,
-						"y": 75,
-						"width": 52,
-						"height": 72
-					},
-					"duration": 120
-				},
-				{
-					"rect": {
-						"x": 1,
-						"y": 149,
-						"width": 52,
-						"height": 72
-					},
-					"duration": 120
-				},
-				{
-					"rect": {
-						"x": 1,
-						"y": 223,
-						"width": 52,
-						"height": 72
-					},
-					"duration": 120
-				},
-				{
-					"rect": {
-						"x": 1,
-						"y": 297,
-						"width": 52,
-						"height": 72
-					},
-					"duration": 120
-				},
-				{
-					"rect": {
-						"x": 1,
-						"y": 371,
-						"width": 52,
-						"height": 72
-					},
-					"duration": 120,
-					"singleshoot": true
-				}
-			]
-		}
-	},
-	"physics": {
-		"collision": {
-			"type": "wall"
-		},
-		"type": "static",
-		"margin": {
-			"top": 0,
-			"left": 0,
-			"bottom": 0,
-			"right": 0
-		},
-		"size": {
-			"width": 0,
-			"height": 0
-		}
-	}
+  "spritesheet": "blobs/explosion.png",
+  "scale": 6,
+  "size": {
+    "width": 52,
+    "height": 72
+  },
+  "animations": {
+    "default": {
+      "frames": [
+        {
+          "rect": {
+            "x": 1,
+            "y": 1,
+            "width": 52,
+            "height": 72
+          },
+          "duration": 120
+        },
+        {
+          "rect": {
+            "x": 1,
+            "y": 75,
+            "width": 52,
+            "height": 72
+          },
+          "duration": 120
+        },
+        {
+          "rect": {
+            "x": 1,
+            "y": 149,
+            "width": 52,
+            "height": 72
+          },
+          "duration": 120
+        },
+        {
+          "rect": {
+            "x": 1,
+            "y": 223,
+            "width": 52,
+            "height": 72
+          },
+          "duration": 120
+        },
+        {
+          "rect": {
+            "x": 1,
+            "y": 297,
+            "width": 52,
+            "height": 72
+          },
+          "duration": 120
+        },
+        {
+          "rect": {
+            "x": 1,
+            "y": 371,
+            "width": 52,
+            "height": 72
+          },
+          "duration": 120,
+          "singleshoot": true
+        }
+      ]
+    }
+  }
 }

@@ -1,63 +1,50 @@
 {
-	"spritesheet": "blobs/princess.png",
-	"scale": 4,
-	"size": {
-		"width": 18,
-		"height": 29
-	},
-	"animations": {
-		"default": {
-			"frames": [
-				{
-					"rect": {
-						"x": 1,
-						"y": 1,
-						"width": 18,
-						"height": 29
-					},
-					"duration": 120
-				},
-				{
-					"rect": {
-						"x": 1,
-						"y": 32,
-						"width": 18,
-						"height": 29
-					},
-					"duration": 120
-				},
-				{
-					"rect": {
-						"x": 1,
-						"y": 63,
-						"width": 18,
-						"height": 29
-					},
-					"duration": 120
-				},
-				{
-					"rect": {
-						"x": 1,
-						"y": 94,
-						"width": 18,
-						"height": 28
-					},
-					"duration": 120
-				}
-			]
-		}
-	},
-	"physics": {
-		"collidable": false,
-		"collision": {
-			"type": "wall"
-		},
-		"type": "static",
-		"margin": {
-			"top": 0,
-			"left": 0,
-			"bottom": 0,
-			"right": 0
-		}
-	}
+  "spritesheet": "blobs/princess.png",
+  "scale": 4,
+  "size": {
+    "width": 18,
+    "height": 29
+  },
+  "animations": {
+    "default": {
+      "frames": [
+        {
+          "rect": {
+            "x": 1,
+            "y": 1,
+            "width": 18,
+            "height": 29
+          },
+          "duration": 120
+        },
+        {
+          "rect": {
+            "x": 1,
+            "y": 32,
+            "width": 18,
+            "height": 29
+          },
+          "duration": 120
+        },
+        {
+          "rect": {
+            "x": 1,
+            "y": 63,
+            "width": 18,
+            "height": 29
+          },
+          "duration": 120
+        },
+        {
+          "rect": {
+            "x": 1,
+            "y": 94,
+            "width": 18,
+            "height": 28
+          },
+          "duration": 120
+        }
+      ]
+    }
+  }
 }

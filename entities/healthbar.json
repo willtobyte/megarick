@@ -1,39 +1,23 @@
 {
-	"spritesheet": "blobs/healthbar.png",
-	"scale": 4,
-	"size": {
-		"width": 16,
-		"height": 55
-	},
-	"animations": {
-		"default": {
-			"frames": [
-				{
-					"rect": {
-						"x": 0,
-						"y": 0,
-						"width": 16,
-						"height": 56
-					},
-					"duration": -1
-				}
-			]
-		}
-	},
-	"physics": {
-		"collision": {
-			"type": "wall"
-		},
-		"type": "static",
-		"margin": {
-			"top": 0,
-			"left": 0,
-			"bottom": 0,
-			"right": 0
-		},
-		"size": {
-			"width": 0,
-			"height": 0
-		}
-	}
+  "spritesheet": "blobs/healthbar.png",
+  "scale": 4,
+  "size": {
+    "width": 16,
+    "height": 55
+  },
+  "animations": {
+    "default": {
+      "frames": [
+        {
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "width": 16,
+            "height": 56
+          },
+          "duration": -1
+        }
+      ]
+    }
+  }
 }

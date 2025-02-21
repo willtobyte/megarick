@@ -7,6 +7,12 @@
   },
   "animations": {
     "attack": {
+      "hitbox": {
+        "x": 96,
+        "y": 32,
+        "width": 64,
+        "height": 96
+      },
       "frames": [
         {
           "rect": {
@@ -193,11 +199,5 @@
         }
       ]
     }
-  },
-  "physics": {
-    "collision": {
-      "type": "enemy"
-    },
-    "type": "static"
   }
 }

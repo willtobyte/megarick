@@ -79,22 +79,5 @@
         }
       ]
     }
-  },
-  "physics": {
-    "collision": {
-      "type": "bullet",
-      "from": "player"
-    },
-    "type": "kinematic",
-    "margin": {
-      "top": 0,
-      "left": 0,
-      "bottom": 0,
-      "right": 0
-    },
-    "size": {
-      "width": 40,
-      "height": 40
-    }
   }
 }

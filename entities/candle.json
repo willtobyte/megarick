@@ -1,57 +1,41 @@
 {
-	"spritesheet": "blobs/candle.png",
-	"scale": 4,
-	"size": {
-		"width": 14,
-		"height": 31
-	},
-	"animations": {
-		"default": {
-			"frames": [
-				{
-					"rect": {
-						"x": 1,
-						"y": 1,
-						"width": 14,
-						"height": 31
-					},
-					"duration": 120
-				},
-				{
-					"rect": {
-						"x": 1,
-						"y": 34,
-						"width": 14,
-						"height": 31
-					},
-					"duration": 120
-				},
-				{
-					"rect": {
-						"x": 1,
-						"y": 67,
-						"width": 14,
-						"height": 31
-					},
-					"duration": 120
-				}
-			]
-		}
-	},
-	"physics": {
-		"collision": {
-			"type": "wall"
-		},
-		"type": "static",
-		"margin": {
-			"top": 0,
-			"left": 0,
-			"bottom": 0,
-			"right": 0
-		},
-		"size": {
-			"width": 0,
-			"height": 0
-		}
-	}
+  "spritesheet": "blobs/candle.png",
+  "scale": 4,
+  "size": {
+    "width": 14,
+    "height": 31
+  },
+  "animations": {
+    "default": {
+      "frames": [
+        {
+          "rect": {
+            "x": 1,
+            "y": 1,
+            "width": 14,
+            "height": 31
+          },
+          "duration": 120
+        },
+        {
+          "rect": {
+            "x": 1,
+            "y": 34,
+            "width": 14,
+            "height": 31
+          },
+          "duration": 120
+        },
+        {
+          "rect": {
+            "x": 1,
+            "y": 67,
+            "width": 14,
+            "height": 31
+          },
+          "duration": 120
+        }
+      ]
+    }
+  }
 }

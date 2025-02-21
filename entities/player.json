@@ -1,137 +1,120 @@
 {
-	"spritesheet": "blobs/player.png",
-	"scale": 4,
-	"size": {
-		"width": 32,
-		"height": 32
-	},
-	"animations": {
-		"attack": {
-			"frames": [
-				{
-					"rect": {
-						"x": 1,
-						"y": 1,
-						"width": 32,
-						"height": 32
-					},
-					"duration": 120
-				}
-			]
-		},
-		"jump-while-attack": {
-			"frames": [
-				{
-					"rect": {
-						"x": 35,
-						"y": 1,
-						"width": 32,
-						"height": 32
-					},
-					"duration": 120
-				}
-			]
-		},
-		"idle": {
-			"frames": [
-				{
-					"rect": {
-						"x": 69,
-						"y": 1,
-						"width": 32,
-						"height": 32
-					},
-					"duration": 120
-				},
-				{
-					"rect": {
-						"x": 103,
-						"y": 1,
-						"width": 32,
-						"height": 32
-					},
-					"duration": 120
-				},
-				{
-					"rect": {
-						"x": 137,
-						"y": 1,
-						"width": 32,
-						"height": 32
-					},
-					"duration": 120
-				},
-				{
-					"rect": {
-						"x": 171,
-						"y": 1,
-						"width": 32,
-						"height": 32
-					},
-					"duration": 120
-				}
-			]
-		},
-		"jump": {
-			"frames": [
-				{
-					"rect": {
-						"x": 205,
-						"y": 1,
-						"width": 32,
-						"height": 32
-					},
-					"duration": 120
-				}
-			]
-		},
-		"run": {
-			"frames": [
-				{
-					"rect": {
-						"x": 239,
-						"y": 1,
-						"width": 32,
-						"height": 32
-					},
-					"duration": 120
-				},
-				{
-					"rect": {
-						"x": 273,
-						"y": 1,
-						"width": 32,
-						"height": 32
-					},
-					"duration": 120
-				},
-				{
-					"rect": {
-						"x": 307,
-						"y": 1,
-						"width": 32,
-						"height": 32
-					},
-					"duration": 120
-				}
-			]
-		}
-	},
-	"physics": {
-		"collision": {
-			"type": "player"
-		},
-		"density": 1.0,
-		"type": "dynamic",
-		"margin": {
-			"top": 0,
-			"left": 0,
-			"bottom": 0,
-			"right": 0
-		},
-		"size": {
-			"width": 32,
-			"height": 32
-		}
-	}
+  "spritesheet": "blobs/player.png",
+  "scale": 4,
+  "size": {
+    "width": 32,
+    "height": 32
+  },
+  "animations": {
+    "attack": {
+      "frames": [
+        {
+          "rect": {
+            "x": 1,
+            "y": 1,
+            "width": 32,
+            "height": 32
+          },
+          "duration": 120
+        }
+      ]
+    },
+    "jump-while-attack": {
+      "frames": [
+        {
+          "rect": {
+            "x": 35,
+            "y": 1,
+            "width": 32,
+            "height": 32
+          },
+          "duration": 120
+        }
+      ]
+    },
+    "idle": {
+      "frames": [
+        {
+          "rect": {
+            "x": 69,
+            "y": 1,
+            "width": 32,
+            "height": 32
+          },
+          "duration": 120
+        },
+        {
+          "rect": {
+            "x": 103,
+            "y": 1,
+            "width": 32,
+            "height": 32
+          },
+          "duration": 120
+        },
+        {
+          "rect": {
+            "x": 137,
+            "y": 1,
+            "width": 32,
+            "height": 32
+          },
+          "duration": 120
+        },
+        {
+          "rect": {
+            "x": 171,
+            "y": 1,
+            "width": 32,
+            "height": 32
+          },
+          "duration": 120
+        }
+      ]
+    },
+    "jump": {
+      "frames": [
+        {
+          "rect": {
+            "x": 205,
+            "y": 1,
+            "width": 32,
+            "height": 32
+          },
+          "duration": 120
+        }
+      ]
+    },
+    "run": {
+      "frames": [
+        {
+          "rect": {
+            "x": 239,
+            "y": 1,
+            "width": 32,
+            "height": 32
+          },
+          "duration": 120
+        },
+        {
+          "rect": {
+            "x": 273,
+            "y": 1,
+            "width": 32,
+            "height": 32
+          },
+          "duration": 120
+        },
+        {
+          "rect": {
+            "x": 307,
+            "y": 1,
+            "width": 32,
+            "height": 32
+          },
+          "duration": 120
+        }
+      ]
+    }
+  }
 }
