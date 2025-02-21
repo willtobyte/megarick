@@ -1,15 +1,24 @@
 ---@diagnostic disable: undefined-global, undefined-field, lowercase-global
 
-local postalservice
-local timemanager
-local entitymanager
-local fontfactory
-local io
-local overlay
-local resourcemanager
-local scenemanager
-local soundmanager
-local statemanager
+_G.engine = EngineFactory.new()
+    :with_title("Mega Rick")
+    :with_width(1920)
+    :with_height(1080)
+    :with_scale(1.0)
+    :with_gravity(0)
+    :with_fullscreen(false)
+    :create()
+
+local entitymanager = engine:entitymanager()
+local fontfactory = engine:fontfactory()
+local io = Socket.new()
+local overlay = engine:overlay()
+local postalservice = PostalService.new()
+local resourcemanager = engine:resourcemanager()
+local scenemanager = engine:scenemanager()
+local soundmanager = engine:soundmanager()
+local statemanager = engine:statemanager()
+local timemanager = TimeManager.new()
 
 local candle1
 local candle2
@@ -20,11 +29,12 @@ local healthbar
 
 local online
 
-local key_states = {}
 local bullet_pool = {}
 local explosion_pool = {}
 local jet_pool = {}
 local segment_pool = {}
+
+local keystate = {}
 
 local timer = false
 
@@ -63,26 +73,6 @@ local behaviors = {
 }
 
 function setup()
-  _G.engine = EngineFactory.new()
-      :with_title("Mega Rick")
-      :with_width(1920)
-      :with_height(1080)
-      :with_scale(1.0)
-      :with_gravity(0)
-      :with_fullscreen(false)
-      :create()
-
-  postalservice = PostalService.new()
-  timemanager = TimeManager.new()
-  entitymanager = engine:entitymanager()
-  fontfactory = engine:fontfactory()
-  io = Socket.new()
-  overlay = engine:overlay()
-  resourcemanager = engine:resourcemanager()
-  scenemanager = engine:scenemanager()
-  soundmanager = engine:soundmanager()
-  statemanager = engine:statemanager()
-
   online = overlay:create(WidgetType.label)
   online.font = fontfactory:get("fixedsys")
   online:set("", 1600, 15)
@@ -175,7 +165,7 @@ function setup()
   player.action:set("idle")
   player.placement:set(30, 794)
   player:on_collision("octopus", function(self)
-    -- TODO
+    --
   end)
 
   healthbar = entitymanager:spawn("healthbar")
@@ -248,19 +238,19 @@ function loop()
 
   player.velocity.x = 0
 
-  if statemanager:is_keydown(KeyEvent.left) then
+  if statemanager:player(Player.one):on(Controller.left) then
     player.reflection:set(Reflection.horizontal)
     player.velocity.x = -360
-  elseif statemanager:is_keydown(KeyEvent.right) then
+  elseif statemanager:player(Player.one):on(Controller.right) then
     player.reflection:unset()
     player.velocity.x = 360
   end
 
   player.action:set(player.velocity.x ~= 0 and "run" or "idle")
 
-  if statemanager:is_keydown(KeyEvent.space) then
-    if not key_states[KeyEvent.space] then
-      key_states[KeyEvent.space] = true
+  if statemanager:player(Player.one):on(Controller.cross) then
+    if not keystate[Controller.cross] then
+      keystate[Controller.cross] = true
 
       -- player.velocity.y = -360
 
@@ -283,7 +273,7 @@ function loop()
       end
     end
   else
-    key_states[KeyEvent.space] = false
+    keystate[Controller.cross] = false
   end
 end
 
