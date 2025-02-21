@@ -251,8 +251,6 @@ function loop()
     if not keystate[Controller.cross] then
       keystate[Controller.cross] = true
 
-      -- player.velocity.y = -360
-
       if octopus.kv:get("life") <= 0 then
         return
       end
