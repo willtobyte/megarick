@@ -1,5 +1,4 @@
 ---@diagnostic disable: undefined-global, undefined-field, lowercase-global
-
 _G.engine = EngineFactory.new()
     :with_title("Mega Rick")
     :with_width(1920)
