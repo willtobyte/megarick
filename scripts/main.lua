@@ -1,5 +1,5 @@
 ---@diagnostic disable: undefined-global, undefined-field, lowercase-global
-_G.engine = EngineFactory.new()
+_G.engine             = EngineFactory.new()
     :with_title("Mega Rick")
     :with_width(1920)
     :with_height(1080)
@@ -8,16 +8,16 @@ _G.engine = EngineFactory.new()
     :with_fullscreen(false)
     :create()
 
-local entitymanager = engine:entitymanager()
-local fontfactory = engine:fontfactory()
-local io = Socket.new()
-local overlay = engine:overlay()
-local postalservice = PostalService.new()
+local entitymanager   = engine:entitymanager()
+local fontfactory     = engine:fontfactory()
+local io              = Socket.new()
+local overlay         = engine:overlay()
+local postalservice   = PostalService.new()
 local resourcemanager = engine:resourcemanager()
-local scenemanager = engine:scenemanager()
-local soundmanager = engine:soundmanager()
-local statemanager = engine:statemanager()
-local timemanager = TimeManager.new()
+local scenemanager    = engine:scenemanager()
+local soundmanager    = engine:soundmanager()
+local statemanager    = engine:statemanager()
+local timemanager     = TimeManager.new()
 
 local candle1
 local candle2
@@ -25,16 +25,14 @@ local healthbar
 local octopus
 local princess
 local player
-
 local online
 
-local bullet_pool = {}
-local explosion_pool = {}
-local jet_pool = {}
-local segment_pool = {}
-local keystate = {}
-
-local timer = false
+local bullet_pool     = {}
+local explosion_pool  = {}
+local jet_pool        = {}
+local segment_pool    = {}
+local keystate        = {}
+local timer           = false
 
 math.randomseed(os.time())
 
@@ -42,29 +40,24 @@ local behaviors = {
   hit = function(self)
     if #explosion_pool > 0 then
       local explosion = table.remove(explosion_pool)
-      local offset_x = (math.random(-2, 2)) * 30
-      local offset_y = (math.random(-2, 2)) * 30
-
+      local offset_x  = (math.random(-2, 2)) * 30
+      local offset_y  = (math.random(-2, 2)) * 30
       explosion.placement:set(octopus.x + offset_x, player.y + offset_y - 200)
       explosion.action:set("default")
-
       timemanager:singleshot(math.random(100, 400), function()
         if #jet_pool > 0 then
-          local jet = table.remove(jet_pool)
-          local x = 980
-          local base = 812
+          local jet   = table.remove(jet_pool)
+          local x     = 980
+          local base  = 812
           local range = 100
-          local step = 20
-
-          local y = base + step * math.random(-range // step, range // step)
-
+          local step  = 20
+          local y     = base + step * math.random(-range // step, range // step)
           jet.placement:set(x, y)
           jet.action:set("default")
           jet.velocity.x = -200 * math.random(3, 6)
         end
       end)
     end
-
     self.action:set("attack")
     self.kv:set("life", self.kv:get("life") - 1)
   end
@@ -79,7 +72,7 @@ function setup()
   candle1.placement:set(60, 100)
   candle1.action:set("default")
 
-  candle2 = entitymanager:spawn("candle")
+  candle2 = entitymanager:clone(candle1)
   candle2.placement:set(1800, 100)
   candle2.action:set("default")
 
@@ -97,28 +90,21 @@ function setup()
     if next(segment_pool) then
       local segment = table.remove(segment_pool, 1)
       entitymanager:destroy(segment)
-      segment = nil
     end
-
     if value <= 0 then
       octopus.action:set("dead")
-
-      -- io:rpc("octopus.death.incr")
-
       if not timer then
         timemanager:singleshot(3000, function()
-          local function destroy(pool)
+          local function destroy_pool(pool)
             for i = #pool, 1, -1 do
               entitymanager:destroy(pool[i])
               table.remove(pool, i)
-              pool[i] = nil
             end
           end
-
-          destroy(bullet_pool)
-          destroy(explosion_pool)
-          destroy(jet_pool)
-          destroy(segment_pool)
+          destroy_pool(bullet_pool)
+          destroy_pool(explosion_pool)
+          destroy_pool(jet_pool)
+          destroy_pool(segment_pool)
 
           entitymanager:destroy(octopus)
           octopus = nil
@@ -162,68 +148,67 @@ function setup()
   player = entitymanager:spawn("player")
   player.action:set("idle")
   player.placement:set(30, 794)
-  player:on_collision("octopus", function(self)
-    --
-  end)
 
   healthbar = entitymanager:spawn("healthbar")
   healthbar.action:set("default")
   healthbar.placement:set(1798, 300)
 
+  local segment_template = entitymanager:spawn("segment")
+  segment_template.action:set("default")
+  segment_template.placement:set(1814, 306)
   for i = 1, 16 do
-    local segment = entitymanager:spawn("segment")
-    segment.action:set("default")
+    local segment = (i == 1) and segment_template or entitymanager:clone(segment_template)
     segment.placement:set(1814, (i * 12) + 306)
     table.insert(segment_pool, segment)
   end
 
-  for _ = 1, 3 do
-    local bullet = entitymanager:spawn("bullet")
-    bullet.placement:set(-128, -128)
-    bullet:on_collision("octopus", function(self, other)
-      self.action:unset()
-      self.placement:set(-128, -128)
-      postalservice:post(Mail.new(octopus, "bullet", "hit"))
-      table.insert(bullet_pool, self)
-    end)
+  local bullet_template = entitymanager:spawn("bullet")
+  bullet_template.placement:set(-128, -128)
+  bullet_template:on_collision("octopus", function(self, other)
+    self.action:unset()
+    self.placement:set(-128, -128)
+    postalservice:post(Mail.new(octopus, "bullet", "hit"))
+    table.insert(bullet_pool, self)
+  end)
+  for i = 1, 3 do
+    local bullet = (i == 1) and bullet_template or entitymanager:clone(bullet_template)
     table.insert(bullet_pool, bullet)
   end
 
-  for _ = 1, 9 do
-    local explosion = entitymanager:spawn("explosion")
-    explosion.placement:set(-128, -128)
-    explosion:on_animationfinished(function(self)
-      self.action:unset()
-      self.placement:set(-128, -128)
-      table.insert(explosion_pool, self)
-    end)
-
+  local explosion_template = entitymanager:spawn("explosion")
+  explosion_template.placement:set(-128, -128)
+  explosion_template:on_animationfinished(function(self)
+    self.action:unset()
+    self.placement:set(-128, -128)
+    table.insert(explosion_pool, self)
+  end)
+  for i = 1, 9 do
+    local explosion = (i == 1) and explosion_template or entitymanager:clone(explosion_template)
     table.insert(explosion_pool, explosion)
   end
 
-  for _ = 1, 9 do
-    local jet = entitymanager:spawn("jet")
-    jet.placement:set(3000, 3000)
-    jet:on_collision("player", function(self)
+  local jet_template = entitymanager:spawn("jet")
+  jet_template.placement:set(3000, 3000)
+  jet_template:on_collision("player", function(self)
+    self.action:unset()
+    self.placement:set(3000, 3000)
+    table.insert(jet_pool, self)
+  end)
+  jet_template:on_update(function(self)
+    if self.x <= -300 then
       self.action:unset()
       self.placement:set(3000, 3000)
       table.insert(jet_pool, self)
-      -- TODO water splash
-    end)
-    jet:on_update(function(self)
-      if self.x <= -300 then
-        self.action:unset()
-        self.placement:set(3000, 3000)
-        table.insert(jet_pool, self)
-      end
-    end)
+    end
+  end)
+  for i = 1, 9 do
+    local jet = (i == 1) and jet_template or entitymanager:clone(jet_template)
     table.insert(jet_pool, jet)
   end
 
   io:on("online", function(data)
     online:set("Online " .. data.clients)
   end)
-
   io:connect()
 
   scenemanager:set("ship")
@@ -249,21 +234,17 @@ function loop()
   if statemanager:player(Player.one):on(Controller.cross) then
     if not keystate[Controller.cross] then
       keystate[Controller.cross] = true
-
       if octopus.kv:get("life") <= 0 then
         return
       end
-
       if #bullet_pool > 0 then
         local bullet = table.remove(bullet_pool)
         local x = (player.x + player.size.width) + 100
         local y = player.y + 10
         local offset_y = (math.random(-2, 2)) * 30
-
         bullet.placement:set(x, y + offset_y)
         bullet.action:set("default")
         bullet.velocity.x = 800
-
         local sound = "bomb" .. math.random(1, 2)
         soundmanager:play(sound)
       end
