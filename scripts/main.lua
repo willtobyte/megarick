@@ -21,10 +21,10 @@ local timemanager = TimeManager.new()
 
 local candle1
 local candle2
+local healthbar
 local octopus
 local princess
 local player
-local healthbar
 
 local online
 
@@ -32,7 +32,6 @@ local bullet_pool = {}
 local explosion_pool = {}
 local jet_pool = {}
 local segment_pool = {}
-
 local keystate = {}
 
 local timer = false
@@ -104,7 +103,7 @@ function setup()
     if value <= 0 then
       octopus.action:set("dead")
 
-      io:rpc("octopus.death.incr")
+      -- io:rpc("octopus.death.incr")
 
       if not timer then
         timemanager:singleshot(3000, function()
@@ -181,7 +180,7 @@ function setup()
   for _ = 1, 3 do
     local bullet = entitymanager:spawn("bullet")
     bullet.placement:set(-128, -128)
-    bullet:on_collision("octopus", function(self)
+    bullet:on_collision("octopus", function(self, other)
       self.action:unset()
       self.placement:set(-128, -128)
       postalservice:post(Mail.new(octopus, "bullet", "hit"))
