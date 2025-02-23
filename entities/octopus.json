@@ -8,7 +8,7 @@
   "animations": {
     "attack": {
       "hitbox": {
-        "x": 96,
+        "x": 82,
         "y": 32,
         "width": 64,
         "height": 96
@@ -137,7 +137,7 @@
     },
     "idle": {
       "hitbox": {
-        "x": 96,
+        "x": 82,
         "y": 32,
         "width": 64,
         "height": 96
