@@ -72,7 +72,7 @@ function setup()
   candle1.placement:set(60, 100)
   candle1.action:set("default")
 
-  candle2 = entitymanager:clone(candle1)
+  candle2 = entitymanager:spawn("candle")
   candle2.placement:set(1800, 100)
   candle2.action:set("default")
 
@@ -96,11 +96,14 @@ function setup()
       if not timer then
         timemanager:singleshot(3000, function()
           local function destroy_pool(pool)
-            for i = #pool, 1, -1 do
-              entitymanager:destroy(pool[i])
-              table.remove(pool, i)
+            while #pool > 0 do
+              local o = table.remove(pool)
+              if o then
+                entitymanager:destroy(o)
+              end
             end
           end
+
           destroy_pool(bullet_pool)
           destroy_pool(explosion_pool)
           destroy_pool(jet_pool)
@@ -153,56 +156,79 @@ function setup()
   healthbar.action:set("default")
   healthbar.placement:set(1798, 300)
 
-  local segment_template = entitymanager:spawn("segment")
-  segment_template.action:set("default")
-  segment_template.placement:set(1814, 306)
   for i = 1, 16 do
-    local segment = (i == 1) and segment_template or entitymanager:clone(segment_template)
+    local segment = entitymanager:spawn("segment")
+    segment.action:set("default")
     segment.placement:set(1814, (i * 12) + 306)
     table.insert(segment_pool, segment)
   end
 
-  local bullet_template = entitymanager:spawn("bullet")
-  bullet_template.placement:set(-128, -128)
-  bullet_template:on_collision("octopus", function(self, other)
-    self.action:unset()
-    self.placement:set(-128, -128)
-    postalservice:post(Mail.new(octopus, "bullet", "hit"))
-    table.insert(bullet_pool, self)
-  end)
   for i = 1, 3 do
-    local bullet = (i == 1) and bullet_template or entitymanager:clone(bullet_template)
+    local bullet = entitymanager:spawn("bullet")
+    bullet.placement:set(-128, -128)
+
+    bullet:on_update(function(self)
+      if self.x > octopus.x + 256 then
+        self.action:unset()
+        self.placement:set(-128, -128)
+        local inpool = false
+        for j = 1, #bullet_pool do
+          if bullet_pool[j] == self then
+            inpool = true
+            break
+          end
+        end
+        if not inpool then
+          table.insert(bullet_pool, self)
+        end
+      end
+    end)
+
+    bullet:on_collision("octopus", function(self, other)
+      self.action:unset()
+      self.placement:set(-128, -128)
+      postalservice:post(Mail.new(octopus, "bullet", "hit"))
+
+      local inpool = false
+      for j = 1, #bullet_pool do
+        if bullet_pool[j] == self then
+          inpool = true
+          break
+        end
+      end
+      if not inpool then
+        table.insert(bullet_pool, self)
+      end
+    end)
     table.insert(bullet_pool, bullet)
   end
 
-  local explosion_template = entitymanager:spawn("explosion")
-  explosion_template.placement:set(-128, -128)
-  explosion_template:on_animationfinished(function(self)
-    self.action:unset()
-    self.placement:set(-128, -128)
-    table.insert(explosion_pool, self)
-  end)
   for i = 1, 9 do
-    local explosion = (i == 1) and explosion_template or entitymanager:clone(explosion_template)
+    local explosion = entitymanager:spawn("explosion")
+    explosion.placement:set(-128, -128)
+    explosion:on_animationfinished(function(self)
+      self.action:unset()
+      self.placement:set(-128, -128)
+      table.insert(explosion_pool, self)
+    end)
     table.insert(explosion_pool, explosion)
   end
 
-  local jet_template = entitymanager:spawn("jet")
-  jet_template.placement:set(3000, 3000)
-  jet_template:on_collision("player", function(self)
-    self.action:unset()
-    self.placement:set(3000, 3000)
-    table.insert(jet_pool, self)
-  end)
-  jet_template:on_update(function(self)
-    if self.x <= -300 then
+  for i = 1, 9 do
+    local jet = entitymanager:spawn("jet")
+    jet.placement:set(3000, 3000)
+    jet:on_collision("player", function(self)
       self.action:unset()
       self.placement:set(3000, 3000)
       table.insert(jet_pool, self)
-    end
-  end)
-  for i = 1, 9 do
-    local jet = (i == 1) and jet_template or entitymanager:clone(jet_template)
+    end)
+    jet:on_update(function(self)
+      if self.x <= -300 then
+        self.action:unset()
+        self.placement:set(3000, 3000)
+        table.insert(jet_pool, self)
+      end
+    end)
     table.insert(jet_pool, jet)
   end
 
