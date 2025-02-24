@@ -64,6 +64,23 @@ local behaviors = {
 }
 
 function setup()
+  resourcemanager:prefetch({
+    "blobs/bomb1.ogg",
+    "blobs/bomb2.ogg",
+    "blobs/box.png",
+    "blobs/bullet.png",
+    "blobs/candle.png",
+    "blobs/explosion.png",
+    "blobs/gameover.png",
+    "blobs/healthbar.png",
+    "blobs/jet.png",
+    "blobs/octopus.png",
+    "blobs/player.png",
+    "blobs/princess.png",
+    "blobs/segment.png",
+    "blobs/ship.png"
+  })
+
   online = overlay:create(WidgetType.label)
   online.font = fontfactory:get("fixedsys")
   online:set("", 1600, 15)
