@@ -204,7 +204,7 @@ function setup()
     bullet:on_collision("octopus", function(self, other)
       self.action:unset()
       self.placement:set(-128, -128)
-      postalservice:post(Mail.new(octopus, "bullet", "hit"))
+      postalservice:post(Mail.new(octopus, self, "hit"))
 
       local inpool = false
       for j = 1, #bullet_pool do
