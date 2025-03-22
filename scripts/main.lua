@@ -282,9 +282,10 @@ function loop()
       end
       if #bullet_pool > 0 then
         local bullet = table.remove(bullet_pool)
-        local x = (player.x + player.size.width) + 100
+        local x = player.x + 120
         local y = player.y + 10
         local offset_y = (math.random(-2, 2)) * 30
+
         bullet.placement:set(x, y + offset_y)
         bullet.action:set("default")
         bullet.velocity.x = 800
