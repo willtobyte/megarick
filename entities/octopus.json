@@ -1,10 +1,6 @@
 {
   "spritesheet": "blobs/octopus.png",
   "scale": 4,
-  "size": {
-    "width": 94,
-    "height": 75
-  },
   "animations": {
     "attack": {
       "hitbox": {

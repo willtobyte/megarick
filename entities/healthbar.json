@@ -1,10 +1,6 @@
 {
   "spritesheet": "blobs/healthbar.png",
   "scale": 4,
-  "size": {
-    "width": 16,
-    "height": 55
-  },
   "animations": {
     "default": {
       "frames": [

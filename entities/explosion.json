@@ -1,10 +1,6 @@
 {
   "spritesheet": "blobs/explosion.png",
   "scale": 6,
-  "size": {
-    "width": 52,
-    "height": 72
-  },
   "animations": {
     "default": {
       "oneshot": true,

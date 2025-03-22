@@ -1,10 +1,6 @@
 {
   "spritesheet": "blobs/bullet.png",
   "scale": 4,
-  "size": {
-    "width": 40,
-    "height": 40
-  },
   "animations": {
     "default": {
       "hitbox": {
