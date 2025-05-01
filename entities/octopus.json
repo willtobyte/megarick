@@ -3,6 +3,7 @@
   "scale": 4,
   "animations": {
     "attack": {
+      "oneshot": true,
       "hitbox": {
         "x": 82,
         "y": 32,
