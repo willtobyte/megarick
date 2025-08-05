@@ -26,8 +26,8 @@ local behaviors = {
 			local explosion = table.remove(explosion_pool)
 			local offset_x = (math.random(-2, 2)) * 30
 			local offset_y = (math.random(-2, 2)) * 30
-			explosion.placement = { x = pool.octopus.x + offset_x, y = pool.player.y + offset_y - 200}
-			explosion.action =  "default"
+			explosion.placement = { x = pool.octopus.x + offset_x, y = pool.player.y + offset_y - 200 }
+			explosion.action = "default"
 			timermanager:singleshot(math.random(100, 400), function()
 				if #jet_pool > 0 then
 					local jet = table.remove(jet_pool)
