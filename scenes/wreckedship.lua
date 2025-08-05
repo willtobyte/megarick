@@ -86,10 +86,10 @@ function scene.on_enter()
 	pool.player.placement = { x = 30, y = 834 }
 
 	local segment_matrix = scene:get("segment", SceneType.object)
-	for i = 1, 16 do
+	for i = 1, 14 do
 		local segment = objectmanager:clone(segment_matrix)
 		segment.action = "default"
-		segment.placement = { x = 1814, y = (i * 12) + 306 }
+		segment.placement = { x = 1802, y = (i * 14) + 222 }
 		table.insert(segment_pool, segment)
 	end
 
