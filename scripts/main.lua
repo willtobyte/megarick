@@ -7,26 +7,9 @@ _G.engine = EngineFactory.new()
 	:with_fullscreen(false)
 	:create()
 
+local scenemanager = engine:scenemanager()
+
 function setup()
-	local resourcemanager = engine:resourcemanager()
-
-	local scenemanager = engine:scenemanager()
-
-	resourcemanager:prefetch({
-		"blobs/bomb1.ogg",
-		"blobs/bomb2.ogg",
-		"blobs/box.png",
-		"blobs/bullet.png",
-		"blobs/candle.png",
-		"blobs/explosion.png",
-		"blobs/healthbar.png",
-		"blobs/jet.png",
-		"blobs/octopus.png",
-		"blobs/player.png",
-		"blobs/princess.png",
-		"blobs/segment.png",
-	})
-
 	scenemanager:register("wreckedship")
 	scenemanager:register("gameover")
 

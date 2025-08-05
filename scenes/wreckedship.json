@@ -1,5 +1,44 @@
 {
   "background": "blobs/ship.png",
   "width": 1920,
-  "height": 1080
+  "height": 1080,
+  "effects": ["bomb1", "bomb2"],
+  "objects": [
+    {
+      "kind": "bullet",
+      "name": "bullet"
+    },
+    {
+      "kind": "candle",
+      "name": "candle"
+    },
+    {
+      "kind": "explosion",
+      "name": "explosion"
+    },
+    {
+      "kind": "healthbar",
+      "name": "healthbar"
+    },
+    {
+      "kind": "jet",
+      "name": "jet"
+    },
+    {
+      "kind": "octopus",
+      "name": "octopus"
+    },
+    {
+      "kind": "player",
+      "name": "player"
+    },
+    {
+      "kind": "princess",
+      "name": "princess"
+    },
+    {
+      "kind": "segment",
+      "name": "segment"
+    }
+  ]
 }

@@ -52,15 +52,15 @@ function scene.on_enter()
 	pool.online.font = fontfactory:get("fixedsys")
 	pool.online:set(1600, 15)
 
-	pool.candle1 = objectmanager:create("candle")
+	pool.candle1 = scene:get("candle", SceneType.object)
 	pool.candle1.placement = { x = 60, y = 100 }
 	pool.candle1.action = "default"
 
-	pool.candle2 = objectmanager:create("candle")
+	pool.candle2 = objectmanager:clone(pool.candle1)
 	pool.candle2.placement = { x = 1800, y = 100 }
 	pool.candle2.action = "default"
 
-	pool.octopus = objectmanager:create("octopus")
+	pool.octopus = scene:get("octopus", SceneType.object)
 	pool.octopus.kv:set("life", 16)
 	pool.octopus.placement = { x = 1200, y = 622 }
 	pool.octopus.action = "idle"
@@ -89,27 +89,28 @@ function scene.on_enter()
 		self.action = "idle"
 	end)
 
-	pool.princess = objectmanager:create("princess")
+	pool.princess = scene:get("princess", SceneType.object)
 	pool.princess.action = "default"
 	pool.princess.placement = { x = 1600, y = 806 }
 
-	pool.player = objectmanager:create("player")
+	pool.player = scene:get("player", SceneType.object)
 	pool.player.action = "idle"
 	pool.player.placement = { x = 30, y = 794 }
 
-	pool.healthbar = objectmanager:create("healthbar")
+	pool.healthbar = scene:get("healthbar", SceneType.object)
 	pool.healthbar.action = "default"
 	pool.healthbar.placement = { x = 1798, y = 300 }
 
 	for i = 1, 16 do
-		local segment = objectmanager:create("segment")
+		local segment = scene:get("segment", SceneType.object)
 		segment.action = "default"
 		segment.placement = { x = 1814, y = (i * 12) + 306 }
 		table.insert(segment_pool, segment)
 	end
 
+	local bullet_matrix = scene:get("bullet", SceneType.object)
 	for i = 1, 3 do
-		local bullet = objectmanager:create("bullet")
+		local bullet = objectmanager:clone(bullet_matrix)
 		bullet.placement = { x = -128, y = -128 }
 
 		bullet:on_update(function(self)
@@ -149,7 +150,7 @@ function scene.on_enter()
 	end
 
 	for i = 1, 9 do
-		local explosion = objectmanager:create("explosion")
+		local explosion = scene:get("explosion", SceneType.object)
 		explosion.placement = { x = -128, y = -128 }
 		explosion:on_animationfinished(function(self)
 			self.action = nil
@@ -160,7 +161,7 @@ function scene.on_enter()
 	end
 
 	for i = 1, 9 do
-		local jet = objectmanager:create("jet")
+		local jet = scene:get("jet", SceneType.object)
 		jet.placement = { x = 3000, y = 3000 }
 		jet:on_collision("player", function(self)
 			self.action = nil
@@ -221,7 +222,8 @@ function scene.on_loop()
 		bullet.velocity.x = 800
 
 		local sound = "bomb" .. math.random(1, 2)
-		soundmanager:play(sound)
+		local bomb = scene:get(sound, SceneType.effect)
+		bomb:play()
 	end
 
 	if not pressed then
