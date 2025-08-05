@@ -101,8 +101,9 @@ function scene.on_enter()
 	pool.healthbar.action = "default"
 	pool.healthbar.placement = { x = 1798, y = 300 }
 
+	local segment_matrix = scene:get("segment", SceneType.object)
 	for i = 1, 16 do
-		local segment = scene:get("segment", SceneType.object)
+		local segment = objectmanager:clone(segment_matrix)
 		segment.action = "default"
 		segment.placement = { x = 1814, y = (i * 12) + 306 }
 		table.insert(segment_pool, segment)
