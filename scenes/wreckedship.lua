@@ -200,27 +200,33 @@ function scene.on_loop()
 	end
 	pool.player.action = action
 
-	-- if statemanager:player(Player.one):on(Controller.cross) then
-	--   if not keystate[Controller.cross] then
-	--     keystate[Controller.cross] = true
-	--     if pool.octopus.kv:get("life") <= 0 then
-	--       return
-	--     end
-	--     if #bullet_pool > 0 then
-	--       local bullet = table.remove(bullet_pool)
-	--       local x = (pool.player.x + pool.player.size.width) + 100
-	--       local y = pool.player.y + 10
-	--       local offset_y = (math.random(-2, 2)) * 30
-	--       bullet.placement:set(x, y + offset_y)
-	--       bullet.action:set("default")
-	--       bullet.velocity.x = 800
-	--       local sound = "bomb" .. math.random(1, 2)
-	--       soundmanager:play(sound)
-	--     end
-	--   end
-	-- else
-	--   keystate[Controller.cross] = false
-	-- end
+	local pressed = statemanager:player(Player.one):on(Controller.cross)
+
+	if pressed and not keystate[Controller.cross] then
+		keystate[Controller.cross] = true
+
+		if pool.octopus.kv:get("life") <= 0 then
+			return
+		end
+		if #bullet_pool == 0 then
+			return
+		end
+
+		local bullet = table.remove(bullet_pool)
+		local x = pool.player.x + pool.player.size.width + 100
+		local y = pool.player.y + 10 + math.random(-2, 2) * 30
+
+		bullet.placement:set(x, y)
+		bullet.action:set("default")
+		bullet.velocity.x = 800
+
+		local sound = "bomb" .. math.random(1, 2)
+		soundmanager:play(sound)
+	end
+
+	if not pressed then
+		keystate[Controller.cross] = false
+	end
 end
 
 function scene.on_leave()

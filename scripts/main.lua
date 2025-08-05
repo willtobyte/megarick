@@ -27,10 +27,10 @@ function setup()
 		"blobs/segment.png",
 	})
 
-	scenemanager:register("ship")
+	scenemanager:register("wreckedship")
 	scenemanager:register("gameover")
 
-	scenemanager:set("ship")
+	scenemanager:set("wreckedship")
 end
 
 function loop() end
