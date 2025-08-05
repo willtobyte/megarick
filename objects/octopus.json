@@ -8,10 +8,12 @@
   "animations": {
     "attack": {
       "hitbox": {
-        "x": 82,
-        "y": 32,
-        "width": 64,
-        "height": 96
+        "rectangle": {
+          "x": 82,
+          "y": 32,
+          "width": 64,
+          "height": 96
+        }
       },
       "frames": [
         {
@@ -137,10 +139,12 @@
     },
     "idle": {
       "hitbox": {
-        "x": 82,
-        "y": 32,
-        "width": 64,
-        "height": 96
+        "rectangle": {
+          "x": 82,
+          "y": 32,
+          "width": 64,
+          "height": 96
+        }
       },
       "frames": [
         {
