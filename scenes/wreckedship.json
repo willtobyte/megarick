@@ -10,7 +10,17 @@
     },
     {
       "kind": "candle",
-      "name": "candle"
+      "name": "candle1",
+      "action": "default",
+      "x": 60,
+      "y": 100
+    },
+    {
+      "kind": "candle",
+      "name": "candle2",
+      "action": "default",
+      "x": 1800,
+      "y": 100
     },
     {
       "kind": "explosion",
@@ -18,7 +28,10 @@
     },
     {
       "kind": "healthbar",
-      "name": "healthbar"
+      "name": "healthbar",
+      "action": "default",
+      "x": 1798,
+      "y": 300
     },
     {
       "kind": "jet",
@@ -34,7 +47,10 @@
     },
     {
       "kind": "princess",
-      "name": "princess"
+      "name": "princess",
+      "action": "default",
+      "x": 1600,
+      "y": 840
     },
     {
       "kind": "segment",

@@ -52,17 +52,9 @@ function scene.on_enter()
 	pool.online.font = fontfactory:get("fixedsys")
 	pool.online:set(1600, 15)
 
-	pool.candle1 = scene:get("candle", SceneType.object)
-	pool.candle1.placement = { x = 60, y = 100 }
-	pool.candle1.action = "default"
-
-	pool.candle2 = objectmanager:clone(pool.candle1)
-	pool.candle2.placement = { x = 1800, y = 100 }
-	pool.candle2.action = "default"
-
 	pool.octopus = scene:get("octopus", SceneType.object)
 	pool.octopus.kv:set("life", 16)
-	pool.octopus.placement = { x = 1200, y = 622 }
+	pool.octopus.placement = { x = 1200, y = 732 }
 	pool.octopus.action = "idle"
 	pool.octopus:on_mail(function(self, message)
 		local behavior = behaviors[message]
@@ -89,17 +81,9 @@ function scene.on_enter()
 		self.action = "idle"
 	end)
 
-	pool.princess = scene:get("princess", SceneType.object)
-	pool.princess.action = "default"
-	pool.princess.placement = { x = 1600, y = 806 }
-
 	pool.player = scene:get("player", SceneType.object)
 	pool.player.action = "idle"
-	pool.player.placement = { x = 30, y = 794 }
-
-	pool.healthbar = scene:get("healthbar", SceneType.object)
-	pool.healthbar.action = "default"
-	pool.healthbar.placement = { x = 1798, y = 300 }
+	pool.player.placement = { x = 30, y = 834 }
 
 	local segment_matrix = scene:get("segment", SceneType.object)
 	for i = 1, 16 do
