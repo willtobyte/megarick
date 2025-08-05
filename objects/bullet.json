@@ -15,7 +15,7 @@
       },
       "frames": [
         {
-          "rect": {
+          "rectangle": {
             "x": 0,
             "y": 0,
             "width": 40,
@@ -24,7 +24,7 @@
           "duration": 100
         },
         {
-          "rect": {
+          "rectangle": {
             "x": 40,
             "y": 0,
             "width": 40,
@@ -33,7 +33,7 @@
           "duration": 60
         },
         {
-          "rect": {
+          "rectangle": {
             "x": 80,
             "y": 0,
             "width": 40,
@@ -42,7 +42,7 @@
           "duration": 60
         },
         {
-          "rect": {
+          "rectangle": {
             "x": 120,
             "y": 0,
             "width": 40,
@@ -51,7 +51,7 @@
           "duration": 60
         },
         {
-          "rect": {
+          "rectangle": {
             "x": 160,
             "y": 0,
             "width": 40,
@@ -60,7 +60,7 @@
           "duration": 60
         },
         {
-          "rect": {
+          "rectangle": {
             "x": 200,
             "y": 0,
             "width": 40,
@@ -69,7 +69,7 @@
           "duration": 80
         },
         {
-          "rect": {
+          "rectangle": {
             "x": 240,
             "y": 0,
             "width": 40,

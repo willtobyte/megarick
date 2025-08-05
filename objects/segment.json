@@ -9,7 +9,7 @@
 		"default": {
 			"frames": [
 				{
-					"rect": {
+					"rectangle": {
 						"x": 0,
 						"y": 0,
 						"width": 8,
