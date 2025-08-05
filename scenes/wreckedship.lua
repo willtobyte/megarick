@@ -26,8 +26,8 @@ local behaviors = {
 			local explosion = table.remove(explosion_pool)
 			local offset_x = (math.random(-2, 2)) * 30
 			local offset_y = (math.random(-2, 2)) * 30
-			explosion.placement:set(pool.octopus.x + offset_x, pool.player.y + offset_y - 200)
-			explosion.action:set("default")
+			explosion.placement = { x = pool.octopus.x + offset_x, y = pool.player.y + offset_y - 200}
+			explosion.action =  "default"
 			timermanager:singleshot(math.random(100, 400), function()
 				if #jet_pool > 0 then
 					local jet = table.remove(jet_pool)
@@ -36,13 +36,13 @@ local behaviors = {
 					local range = 100
 					local step = 20
 					local y = base + step * math.random(math.floor(-range / step), math.floor(range / step))
-					jet.placement:set(x, y)
-					jet.action:set("default")
+					jet.placement = { x, y }
+					jet.action = "default"
 					jet.velocity.x = -200 * math.random(3, 6)
 				end
 			end)
 		end
-		self.action:set("attack")
+		self.action = "attack"
 		self.kv:set("life", self.kv:get("life") - 1)
 	end,
 }
@@ -130,7 +130,7 @@ function scene.on_enter()
 		end)
 
 		bullet:on_collision("octopus", function(self, other)
-			self.action:unset()
+			self.action = nil
 			self.placement = { x = -128, y = -128 }
 			postalservice:post(Mail.new(pool.octopus, self, "hit"))
 
@@ -152,7 +152,7 @@ function scene.on_enter()
 		local explosion = objectmanager:create("explosion")
 		explosion.placement = { x = -128, y = -128 }
 		explosion:on_animationfinished(function(self)
-			self.action:unset()
+			self.action = nil
 			self.placement = { x = -128, y = -128 }
 			table.insert(explosion_pool, self)
 		end)
@@ -163,13 +163,13 @@ function scene.on_enter()
 		local jet = objectmanager:create("jet")
 		jet.placement = { x = 3000, y = 3000 }
 		jet:on_collision("player", function(self)
-			self.action:unset()
+			self.action = nil
 			self.placement = { x = 3000, y = 3000 }
 			table.insert(jet_pool, self)
 		end)
 		jet:on_update(function(self)
 			if self.x <= -300 then
-				self.action:unset()
+				self.action = nil
 				self.placement = { x = 3000, y = 3000 }
 				table.insert(jet_pool, self)
 			end
@@ -213,10 +213,10 @@ function scene.on_loop()
 		end
 
 		local bullet = table.remove(bullet_pool)
-		local x = pool.player.x -- + pool.player.size.width + 100
-		local y = pool.player.y + 10 + math.random(-2, 2) * 30
+		local x = 10 -- pool.player.x -- + pool.player.size.width + 100
+		local y = 600 --pool.player.y + 10 + math.random(-2, 2) * 30
 
-		bullet.placement:set(x, y)
+		bullet.placement = { x = x, y = y }
 		bullet.action = "default"
 		bullet.velocity.x = 800
 
