@@ -233,48 +233,9 @@ function scene.on_loop()
 end
 
 function scene.on_leave()
-	local function destroy_pool(pool)
-		while #pool > 0 do
-			local o = table.remove(pool)
-			if o then
-				objectmanager:destroy(o)
-			end
-		end
-	end
-
-	destroy_pool(bullet_pool)
-	destroy_pool(explosion_pool)
-	destroy_pool(jet_pool)
-	destroy_pool(segment_pool)
-
-	objectmanager:destroy(pool.octopus)
-	pool.octopus = nil
-
-	objectmanager:destroy(pool.healthbar)
-	pool.healthbar = nil
-
-	objectmanager:destroy(pool.player)
-	pool.player = nil
-
-	objectmanager:destroy(pool.princess)
-	pool.princess = nil
-
-	objectmanager:destroy(pool.candle1)
-	pool.candle1 = nil
-
-	objectmanager:destroy(pool.candle2)
-	pool.candle2 = nil
-
-	overlay:destroy(pool.online)
-	pool.online = nil
-
-	collectgarbage("collect")
-
-	resourcemanager:flush()
-
-	for o in pairs(pool) do
-		pool[o] = nil
-	end
+	-- for o in pairs(pool) do
+	-- 	pool[o] = nil
+	-- end
 end
 
 return scene
