@@ -8,7 +8,7 @@ _G.engine             = EngineFactory.new()
     :with_fullscreen(false)
     :create()
 
-local entitymanager   = engine:entitymanager()
+local objectmanager   = engine:objectmanager()
 local fontfactory     = engine:fontfactory()
 local io              = Socket.new()
 local overlay         = engine:overlay()
@@ -17,7 +17,7 @@ local resourcemanager = engine:resourcemanager()
 local scenemanager    = engine:scenemanager()
 local soundmanager    = engine:soundmanager()
 local statemanager    = engine:statemanager()
-local timemanager     = TimeManager.new()
+local timermanager    = engine:timermanager()
 
 local candle1
 local candle2
@@ -44,14 +44,14 @@ local behaviors = {
       local offset_y  = (math.random(-2, 2)) * 30
       explosion.placement:set(octopus.x + offset_x, player.y + offset_y - 200)
       explosion.action:set("default")
-      timemanager:singleshot(math.random(100, 400), function()
+      timermanager:singleshot(math.random(100, 400), function()
         if #jet_pool > 0 then
           local jet   = table.remove(jet_pool)
           local x     = 980
           local base  = 812
           local range = 100
           local step  = 20
-          local y     = base + step * math.random(-range // step, range // step)
+          local y = base + step * math.random(math.floor(-range / step), math.floor(range / step))
           jet.placement:set(x, y)
           jet.action:set("default")
           jet.velocity.x = -200 * math.random(3, 6)
@@ -85,15 +85,15 @@ function setup()
   online.font = fontfactory:get("fixedsys")
   online:set("", 1600, 15)
 
-  candle1 = entitymanager:spawn("candle")
+  candle1 = objectmanager:create("candle")
   candle1.placement:set(60, 100)
   candle1.action:set("default")
 
-  candle2 = entitymanager:spawn("candle")
+  candle2 = objectmanager:create("candle")
   candle2.placement:set(1800, 100)
   candle2.action:set("default")
 
-  octopus = entitymanager:spawn("octopus")
+  octopus = objectmanager:create("octopus")
   octopus.kv:set("life", 16)
   octopus.placement:set(1200, 622)
   octopus.action:set("idle")
@@ -106,17 +106,17 @@ function setup()
   octopus.kv:subscribe("life", function(value)
     if next(segment_pool) then
       local segment = table.remove(segment_pool, 1)
-      entitymanager:destroy(segment)
+      objectmanager:destroy(segment)
     end
     if value <= 0 then
       octopus.action:set("dead")
       if not timer then
-        timemanager:singleshot(3000, function()
+        timermanager:singleshot(3000, function()
           local function destroy_pool(pool)
             while #pool > 0 do
               local o = table.remove(pool)
               if o then
-                entitymanager:destroy(o)
+                objectmanager:destroy(o)
               end
             end
           end
@@ -126,22 +126,22 @@ function setup()
           destroy_pool(jet_pool)
           destroy_pool(segment_pool)
 
-          entitymanager:destroy(octopus)
+          objectmanager:destroy(octopus)
           octopus = nil
 
-          entitymanager:destroy(healthbar)
+          objectmanager:destroy(healthbar)
           healthbar = nil
 
-          entitymanager:destroy(player)
+          objectmanager:destroy(player)
           player = nil
 
-          entitymanager:destroy(princess)
+          objectmanager:destroy(princess)
           princess = nil
 
-          entitymanager:destroy(candle1)
+          objectmanager:destroy(candle1)
           candle1 = nil
 
-          entitymanager:destroy(candle2)
+          objectmanager:destroy(candle2)
           candle2 = nil
 
           overlay:destroy(online)
@@ -161,27 +161,27 @@ function setup()
     self.action:set("idle")
   end)
 
-  princess = entitymanager:spawn("princess")
+  princess = objectmanager:create("princess")
   princess.action:set("default")
   princess.placement:set(1600, 806)
 
-  player = entitymanager:spawn("player")
+  player = objectmanager:create("player")
   player.action:set("idle")
   player.placement:set(30, 794)
 
-  healthbar = entitymanager:spawn("healthbar")
+  healthbar = objectmanager:create("healthbar")
   healthbar.action:set("default")
   healthbar.placement:set(1798, 300)
 
   for i = 1, 16 do
-    local segment = entitymanager:spawn("segment")
+    local segment = objectmanager:create("segment")
     segment.action:set("default")
     segment.placement:set(1814, (i * 12) + 306)
     table.insert(segment_pool, segment)
   end
 
   for i = 1, 3 do
-    local bullet = entitymanager:spawn("bullet")
+    local bullet = objectmanager:create("bullet")
     bullet.placement:set(-128, -128)
 
     bullet:on_update(function(self)
@@ -221,7 +221,7 @@ function setup()
   end
 
   for i = 1, 9 do
-    local explosion = entitymanager:spawn("explosion")
+    local explosion = objectmanager:create("explosion")
     explosion.placement:set(-128, -128)
     explosion:on_animationfinished(function(self)
       self.action:unset()
@@ -232,7 +232,7 @@ function setup()
   end
 
   for i = 1, 9 do
-    local jet = entitymanager:spawn("jet")
+    local jet = objectmanager:create("jet")
     jet.placement:set(3000, 3000)
     jet:on_collision("player", function(self)
       self.action:unset()
