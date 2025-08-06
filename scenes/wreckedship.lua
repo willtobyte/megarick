@@ -194,8 +194,8 @@ function scene.on_loop()
 		end
 
 		local bullet = table.remove(bullet_pool)
-		local x = 10 -- pool.player.x -- + pool.player.size.width + 100
-		local y = 740 + math.random(-2, 2) * 30 -- + pool.player.y + 10
+		local x = pool.player.x + 100
+		local y = 740 + math.random(-2, 2) * 30
 
 		bullet.placement = { x = x, y = y }
 		bullet.action = "default"
