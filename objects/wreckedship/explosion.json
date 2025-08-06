@@ -7,7 +7,7 @@
   },
   "animations": {
     "default": {
-      "singleshot": true,
+      "oneshot": true,
       "frames": [
         {
           "rectangle": {

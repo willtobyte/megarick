@@ -17,15 +17,20 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Install 7zip
-        run: sudo apt-get install p7zip-full
+      - name: Enforce non-fullscreen
+        run: |
+          sed -i -E 's/^(\s*:with_fullscreen\s*)\(true\)/\1(false)/' scripts/main.lua
 
-      - name: Create bundle
-        run: 7z a -xr'!.git/*' -xr'!.git' -xr'!.*' -t7z -m0=lzma -mx=6 -mfb=64 -md=32m -ms=on bundle.7z .
+      - name: Create cartridge
+        run: |
+          find . -name '.*' ! -name '.' ! -name '..' -print
+          find . -name '.*' ! -name '.' ! -name '..' -exec rm -rf {} +
+
+          zip -r cartridge.zip .
 
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
           tag_name: ${{ github.event.inputs.tagName }}
           prerelease: ${{ github.events.inputs.prerelease }}
-          files: bundle.7z
+          files: cartridge.zip

@@ -7,10 +7,12 @@
   },
   "animations": {
     "attack": {
+      "oneshot": true,
+      "next": "idle",
       "hitbox": {
         "rectangle": {
-          "x": 82,
-          "y": 32,
+          "x": 0,
+          "y": 0,
           "width": 64,
           "height": 96
         }
@@ -140,8 +142,8 @@
     "idle": {
       "hitbox": {
         "rectangle": {
-          "x": 82,
-          "y": 32,
+          "x": 0,
+          "y": 0,
           "width": 64,
           "height": 96
         }

@@ -7,9 +7,7 @@ local fontfactory = engine:fontfactory()
 local objectmanager = engine:objectmanager()
 local overlay = engine:overlay()
 local postalservice = PostalService.new()
-local resourcemanager = engine:resourcemanager()
 local scenemanager = engine:scenemanager()
-local soundmanager = engine:soundmanager()
 local statemanager = engine:statemanager()
 local timermanager = engine:timermanager()
 
@@ -76,9 +74,6 @@ function scene.on_enter()
 				timer = true
 			end
 		end
-	end)
-	pool.octopus:on_animationfinished(function(self)
-		self.action = "idle"
 	end)
 
 	pool.player = scene:get("player", SceneType.object)
@@ -200,7 +195,7 @@ function scene.on_loop()
 
 		local bullet = table.remove(bullet_pool)
 		local x = 10 -- pool.player.x -- + pool.player.size.width + 100
-		local y = 600 --pool.player.y + 10 + math.random(-2, 2) * 30
+		local y = 740 + math.random(-2, 2) * 30 -- + pool.player.y + 10
 
 		bullet.placement = { x = x, y = y }
 		bullet.action = "default"
