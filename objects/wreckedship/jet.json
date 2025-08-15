@@ -1,32 +1,32 @@
 {
-	"spritesheet": "blobs/jet.png",
-	"scale": 4,
-	"size": {
-		"width": 129,
-		"height": 22
-	},
-	"animations": {
-		"default": {
-			"frames": [
-				{
-					"rectangle": {
-						"x": 67,
-						"y": 1,
-						"width": 61,
-						"height": 20
-					},
-					"duration": 200
-				},
-				{
-					"rectangle": {
-						"x": 1,
-						"y": 1,
-						"width": 64,
-						"height": 20
-					},
-					"duration": 200
-				}
-			]
-		}
-	}
+  "spritesheet": "blobs/jet.png",
+  "scale": 4,
+  "size": {
+    "width": 129,
+    "height": 22
+  },
+  "animations": {
+    "default": {
+      "frames": [
+        {
+          "rectangle": {
+            "x": 67,
+            "y": 1,
+            "width": 61,
+            "height": 20
+          },
+          "duration": 200
+        },
+        {
+          "rectangle": {
+            "x": 1,
+            "y": 1,
+            "width": 64,
+            "height": 20
+          },
+          "duration": 200
+        }
+      ]
+    }
+  }
 }
