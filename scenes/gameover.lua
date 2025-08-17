@@ -7,7 +7,7 @@ local resourcemanager = engine:resourcemanager()
 local scenemanager = engine:scenemanager()
 
 function scene.on_enter()
-	scenemanager:destroy("wreckedship")
+	scenemanager:destroy("*")
 end
 
 function scene.on_loop() end

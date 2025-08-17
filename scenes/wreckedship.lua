@@ -51,7 +51,7 @@ function scene.on_enter()
 	pool.online:set(1600, 15)
 
 	pool.octopus = scene:get("octopus", SceneType.object)
-	pool.octopus.kv:set("life", 16)
+	pool.octopus.kv:set("life", 14)
 	pool.octopus.placement = { x = 1200, y = 732 }
 	pool.octopus.action = "idle"
 	pool.octopus:on_mail(function(self, message)
