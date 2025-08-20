@@ -1,7 +1,7 @@
 local helpers = {}
 
 function helpers.hello()
-	print("Hello world!")
+  print("Hello world!")
 end
 
 return helpers
