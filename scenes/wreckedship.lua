@@ -41,7 +41,7 @@ local behaviors = {
       end)
     end
     self.action = "attack"
-    self.kv:set("life", self.kv:get("life") - 1)
+    self.life.value = self.life.value - 1
   end,
 }
 
@@ -51,7 +51,7 @@ function scene.on_enter()
   pool.online:set(1600, 15)
 
   pool.octopus = scene:get("octopus", SceneType.object)
-  pool.octopus.kv:set("life", 14)
+  pool.octopus.life = 14
   pool.octopus.placement = { x = 1200, y = 732 }
   pool.octopus.action = "idle"
   pool.octopus:on_mail(function(self, message)
@@ -60,7 +60,7 @@ function scene.on_enter()
       behavior(self)
     end
   end)
-  pool.octopus.kv:subscribe("life", function(value)
+  pool.octopus.life:subscribe(function(value)
     if next(segment_pool) then
       local segment = table.remove(segment_pool, 1)
       objectmanager:destroy(segment)
@@ -132,7 +132,7 @@ function scene.on_enter()
   for i = 1, 9 do
     local explosion = scene:get("explosion", SceneType.object)
     explosion.placement = { x = -128, y = -128 }
-    explosion:on_animationfinished(function(self)
+    explosion:on_end(function(self)
       self.action = nil
       self.placement = { x = -128, y = -128 }
       table.insert(explosion_pool, self)
@@ -186,7 +186,7 @@ function scene.on_loop()
   if pressed and not keystate[Controller.south] then
     keystate[Controller.south] = true
 
-    if pool.octopus.kv:get("life") <= 0 then
+    if pool.octopus.life.value <= 0 then
       return
     end
     if #bullet_pool == 0 then
@@ -212,9 +212,12 @@ function scene.on_loop()
 end
 
 function scene.on_leave()
-  -- for o in pairs(pool) do
-  -- 	pool[o] = nil
-  -- end
+  for name in next, pool do
+    pool[name] = nil
+  end
 end
+
+sentinel(scene, "wreckedship")
+
 
 return scene
