@@ -41,7 +41,7 @@ local behaviors = {
       end)
     end
     self.action = "attack"
-    self.life.value = self.life.value - 1
+    self.life = self.life.value - 1
   end,
 }
 
@@ -63,7 +63,7 @@ function scene.on_enter()
   pool.octopus.life:subscribe(function(value)
     if next(segment_pool) then
       local segment = table.remove(segment_pool, 1)
-      objectmanager:destroy(segment)
+      -- objectmanager:destroy(segment)
     end
     if value <= 0 then
       pool.octopus.action = "dead"
@@ -111,7 +111,6 @@ function scene.on_enter()
     end)
 
     bullet:on_collision("octopus", function(self, other)
-      self.action = nil
       self.placement = { x = -128, y = -128 }
       postalservice:post(Mail.new(pool.octopus, self, "hit"))
 
@@ -198,6 +197,7 @@ function scene.on_loop()
     local y = 740 + math.random(-2, 2) * 30
 
     bullet.placement = { x = x, y = y }
+    bullet.action = nil
     bullet.action = "default"
     bullet.velocity.x = 800
 
