@@ -97,6 +97,8 @@ function scene.on_enter()
       if self.x > pool.octopus.x + 256 then
         self.action = nil
         self.placement = { x = -128, y = -128 }
+        bullet.velocity.x = 0
+        self.action = {}
         local inpool = false
         for j = 1, #bullet_pool do
           if bullet_pool[j] == self then
