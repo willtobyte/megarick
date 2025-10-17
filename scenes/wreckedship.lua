@@ -63,7 +63,7 @@ function scene.on_enter()
   pool.octopus.life:subscribe(function(value)
     if next(segment_pool) then
       local segment = table.remove(segment_pool, 1)
-      objectmanager:destroy(segment)
+      objectmanager:remove(segment)
     end
     if value <= 0 then
       pool.octopus.action = "dead"
@@ -168,12 +168,12 @@ end
 function scene.on_loop()
   if statemanager:player(Player.one):on(Controller.left) then
     pool.player.reflection = Reflection.horizontal
-    pool.player.velocity.x = -360
+    pool.player.velocity = { x = -360 }
   elseif statemanager:player(Player.one):on(Controller.right) then
     pool.player.reflection = Reflection.none
-    pool.player.velocity.x = 360
+    pool.player.velocity = { x = 360 }
   else
-    pool.player.velocity.x = 0
+    pool.player.velocity = { x = 0 }
   end
 
   local action = "run"
