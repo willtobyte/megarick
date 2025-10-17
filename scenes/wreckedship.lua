@@ -63,7 +63,7 @@ function scene.on_enter()
   pool.octopus.life:subscribe(function(value)
     if next(segment_pool) then
       local segment = table.remove(segment_pool, 1)
-      -- objectmanager:destroy(segment)
+      objectmanager:destroy(segment)
     end
     if value <= 0 then
       pool.octopus.action = "dead"
