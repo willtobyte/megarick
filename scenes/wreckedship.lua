@@ -34,8 +34,8 @@ local behaviors = {
           local range = 100
           local step = 20
           local y = base + step * math.random(math.floor(-range / step), math.floor(range / step))
-          jet.placement = { x, y }
           jet.action = "default"
+          jet.placement = { x, y }
           jet.velocity = { x = -200 * math.random(3, 6) }
         end
       end)
