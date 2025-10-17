@@ -36,7 +36,7 @@ local behaviors = {
           local y = base + step * math.random(math.floor(-range / step), math.floor(range / step))
           jet.placement = { x, y }
           jet.action = "default"
-          jet.velocity.x = -200 * math.random(3, 6)
+          jet.velocity = { x = -200 * math.random(3, 6) }
         end
       end)
     end
@@ -97,7 +97,7 @@ function scene.on_enter()
       if self.x > pool.octopus.x + 256 then
         self.action = nil
         self.placement = { x = -128, y = -128 }
-        bullet.velocity.x = 0
+        self.velocity.x = 0
         self.action = {}
         local inpool = false
         for j = 1, #bullet_pool do
@@ -201,7 +201,7 @@ function scene.on_loop()
     bullet.placement = { x = x, y = y }
     bullet.action = nil
     bullet.action = "default"
-    bullet.velocity.x = 800
+    bullet.velocity = { x = 800 }
 
     local sound = "bomb" .. math.random(1, 2)
     local bomb = scene:get(sound, SceneType.effect)
