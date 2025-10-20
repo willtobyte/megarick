@@ -126,8 +126,9 @@ function scene.on_enter()
     explosion_pool[#explosion_pool + 1] = explosion
   end
 
+  local jet_matrix = scene:get("jet", SceneType.object)
   for i = 1, 9 do
-    local jet = scene:get("jet", SceneType.object)
+    local jet = objectmanager:clone(jet_matrix)
     jet.placement = OFF_JET
     jet:on_collision("player", function(self)
       deactivate(self, OFF_JET)
@@ -138,23 +139,23 @@ function scene.on_enter()
   end
 end
 
-function scene.on_loop()
+function scene.on_loop(delta)
+  local moving = false
   if statemanager:player(Player.one):on(Controller.left) then
     pool.player.reflection = Reflection.horizontal
-    pool.player.velocity = { x = -360 }
+    pool.player.x = pool.player.x - 360 * delta
+    moving = true
   end
   if statemanager:player(Player.one):on(Controller.right) then
     pool.player.reflection = Reflection.none
-    pool.player.velocity = { x = 360 }
-  end
-  if not (statemanager:player(Player.one):on(Controller.left) or statemanager:player(Player.one):on(Controller.right)) then
-    pool.player.velocity = { x = 0 }
+    pool.player.x = pool.player.x + 360 * delta
+    moving = true
   end
 
-  pool.player.action = (pool.player.velocity.x == 0) and "idle" or "run"
+  pool.player.action = moving and "run" or "idle"
 
-  local pressed = statemanager:player(Player.one):on(Controller.south)
-  if pressed and not keystate[Controller.south] then
+  local press = statemanager:player(Player.one):on(Controller.south)
+  if press and not keystate[Controller.south] then
     keystate[Controller.south] = true
     if pool.octopus.life.value <= 0 then return end
     if #bullet_pool == 0 then return end
@@ -164,17 +165,18 @@ function scene.on_loop()
     local y = FIRE_Y_BASE + rand(-2, 2) * FIRE_Y_STEP
     bullet.placement = { x = x, y = y }
     bullet.action = "default"
-    bullet.velocity = { x = 800 }
+    bullet.x = bullet.x + 800 * delta
     push_unique(active_bullets, bullet)
 
     local sound = "bomb" .. rand(1, 2)
     local sfx = scene:get(sound, SceneType.effect)
     sfx:play()
   end
-  if not pressed then keystate[Controller.south] = false end
+  if not press then keystate[Controller.south] = false end
 
   for i = #active_bullets, 1, -1 do
     local b = active_bullets[i]
+    b.x = b.x + 800 * delta
     if b.x > pool.octopus.x + 256 then
       deactivate(b, OFF_BULLET)
       table.remove(active_bullets, i)
@@ -184,6 +186,7 @@ function scene.on_loop()
 
   for i = #active_jets, 1, -1 do
     local j = active_jets[i]
+    j.x = j.x - 1200 * delta
     if j.x <= JET_OFF_X then
       deactivate(j, OFF_JET)
       table.remove(active_jets, i)
