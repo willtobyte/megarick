@@ -152,8 +152,6 @@ function scene.on_loop(delta)
     moving = true
   end
 
-  --pool.player.action = moving and "run" or "idle"
-  --
   if not moving and pool.player.action ~= "idle" then
     pool.player.action = "idle"
   elseif moving and pool.player.action ~= "run" then
