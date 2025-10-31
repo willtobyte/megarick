@@ -15,5 +15,3 @@ function setup()
 
   scenemanager:set("wreckedship")
 end
-
-function loop() end
