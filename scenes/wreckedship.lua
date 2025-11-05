@@ -169,7 +169,7 @@ function scene.on_loop(delta)
     local y = FIRE_Y_BASE + rand(-2, 2) * FIRE_Y_STEP
     bullet.placement = { x = x, y = y }
     bullet.action = "default"
-    bullet.x = bullet.x + 800 * delta
+
     push_unique(active_bullets, bullet)
 
     local sound = "bomb" .. rand(1, 2)
@@ -180,7 +180,7 @@ function scene.on_loop(delta)
 
   for i = #active_bullets, 1, -1 do
     local b = active_bullets[i]
-    b.x = b.x + 800 * delta
+    b.x = b.x + 600 * delta
     if b.x > pool.octopus.x + 256 then
       deactivate(b, OFF_BULLET)
       table.remove(active_bullets, i)
