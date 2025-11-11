@@ -26,11 +26,11 @@ jobs:
           find . -name '.*' ! -name '.' ! -name '..' -print
           find . -name '.*' ! -name '.' ! -name '..' -exec rm -rf {} +
 
-          zip -r cartridge.zip .
+          zip -r cartridge.rom .
 
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
           tag_name: ${{ github.event.inputs.tagName }}
           prerelease: ${{ github.events.inputs.prerelease }}
-          files: cartridge.zip
+          files: cartridge.rom
