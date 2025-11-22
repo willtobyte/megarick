@@ -65,7 +65,7 @@ local behaviors = {
 }
 
 function scene.on_enter()
-  pool.octopus = scene:get("octopus", SceneType.object)
+  pool.octopus = scene:get("octopus", SceneKind.object)
   pool.octopus.life = 14
   pool.octopus.placement = { x = 1200, y = 732 }
   pool.octopus.action = "idle"
@@ -88,11 +88,11 @@ function scene.on_enter()
     timer = true
   end)
 
-  pool.player = scene:get("player", SceneType.object)
+  pool.player = scene:get("player", SceneKind.object)
   pool.player.action = "idle"
   pool.player.placement = { x = 30, y = PLAYER_Y }
 
-  local segment_matrix = scene:get("segment", SceneType.object)
+  local segment_matrix = scene:get("segment", SceneKind.object)
   for i = 1, 14 do
     local segment = objectmanager:clone(segment_matrix)
     segment.action = "default"
@@ -100,7 +100,7 @@ function scene.on_enter()
     segment_pool[#segment_pool + 1] = segment
   end
 
-  local bullet_matrix = scene:get("bullet", SceneType.object)
+  local bullet_matrix = scene:get("bullet", SceneKind.object)
   for i = 1, 3 do
     local b = objectmanager:clone(bullet_matrix)
     b.placement = OFF_BULLET
@@ -117,7 +117,7 @@ function scene.on_enter()
   end
 
   for i = 1, 9 do
-    local explosion = scene:get("explosion", SceneType.object)
+    local explosion = scene:get("explosion", SceneKind.object)
     explosion.placement = OFF_BULLET
     explosion:on_end(function(self)
       deactivate(self, OFF_BULLET)
@@ -126,7 +126,7 @@ function scene.on_enter()
     explosion_pool[#explosion_pool + 1] = explosion
   end
 
-  local jet_matrix = scene:get("jet", SceneType.object)
+  local jet_matrix = scene:get("jet", SceneKind.object)
   for i = 1, 9 do
     local jet = objectmanager:clone(jet_matrix)
     jet.placement = OFF_JET
@@ -173,7 +173,7 @@ function scene.on_loop(delta)
     push_unique(active_bullets, bullet)
 
     local sound = "bomb" .. rand(1, 2)
-    local sfx = scene:get(sound, SceneType.effect)
+    local sfx = scene:get(sound, SceneKind.effect)
     sfx:play()
   end
   if not press then keystate[Controller.south] = false end
