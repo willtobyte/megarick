@@ -24,10 +24,6 @@
       "y": 140
     },
     {
-      "kind": "explosion",
-      "name": "explosion"
-    },
-    {
       "kind": "healthbar",
       "name": "healthbar",
       "action": "default",
@@ -41,6 +37,10 @@
     {
       "kind": "octopus",
       "name": "octopus"
+    },
+    {
+      "kind": "explosion",
+      "name": "explosion"
     },
     {
       "kind": "player",
