@@ -10,7 +10,7 @@
       "oneshot": true,
       "frames": [
         {
-          "rectangle": {
+          "quad": {
             "x": 1,
             "y": 1,
             "width": 52,
@@ -19,7 +19,7 @@
           "duration": 120
         },
         {
-          "rectangle": {
+          "quad": {
             "x": 1,
             "y": 75,
             "width": 52,
@@ -28,7 +28,7 @@
           "duration": 120
         },
         {
-          "rectangle": {
+          "quad": {
             "x": 1,
             "y": 149,
             "width": 52,
@@ -37,7 +37,7 @@
           "duration": 120
         },
         {
-          "rectangle": {
+          "quad": {
             "x": 1,
             "y": 223,
             "width": 52,
@@ -46,7 +46,7 @@
           "duration": 120
         },
         {
-          "rectangle": {
+          "quad": {
             "x": 1,
             "y": 297,
             "width": 52,
@@ -55,7 +55,7 @@
           "duration": 120
         },
         {
-          "rectangle": {
+          "quad": {
             "x": 1,
             "y": 371,
             "width": 52,

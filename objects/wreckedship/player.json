@@ -9,7 +9,7 @@
     "attack": {
       "frames": [
         {
-          "rectangle": {
+          "quad": {
             "x": 1,
             "y": 1,
             "width": 32,
@@ -22,7 +22,7 @@
     "jump-while-attack": {
       "frames": [
         {
-          "rectangle": {
+          "quad": {
             "x": 35,
             "y": 1,
             "width": 32,
@@ -35,7 +35,7 @@
     "idle": {
       "frames": [
         {
-          "rectangle": {
+          "quad": {
             "x": 69,
             "y": 1,
             "width": 32,
@@ -44,7 +44,7 @@
           "duration": 120
         },
         {
-          "rectangle": {
+          "quad": {
             "x": 103,
             "y": 1,
             "width": 32,
@@ -53,7 +53,7 @@
           "duration": 120
         },
         {
-          "rectangle": {
+          "quad": {
             "x": 137,
             "y": 1,
             "width": 32,
@@ -62,7 +62,7 @@
           "duration": 120
         },
         {
-          "rectangle": {
+          "quad": {
             "x": 171,
             "y": 1,
             "width": 32,
@@ -75,7 +75,7 @@
     "jump": {
       "frames": [
         {
-          "rectangle": {
+          "quad": {
             "x": 205,
             "y": 1,
             "width": 32,
@@ -88,7 +88,7 @@
     "run": {
       "frames": [
         {
-          "rectangle": {
+          "quad": {
             "x": 239,
             "y": 1,
             "width": 32,
@@ -97,7 +97,7 @@
           "duration": 120
         },
         {
-          "rectangle": {
+          "quad": {
             "x": 273,
             "y": 1,
             "width": 32,
@@ -106,7 +106,7 @@
           "duration": 120
         },
         {
-          "rectangle": {
+          "quad": {
             "x": 307,
             "y": 1,
             "width": 32,

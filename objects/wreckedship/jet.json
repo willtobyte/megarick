@@ -9,7 +9,7 @@
     "default": {
       "frames": [
         {
-          "rectangle": {
+          "quad": {
             "x": 67,
             "y": 1,
             "width": 61,
@@ -18,7 +18,7 @@
           "duration": 200
         },
         {
-          "rectangle": {
+          "quad": {
             "x": 1,
             "y": 1,
             "width": 64,

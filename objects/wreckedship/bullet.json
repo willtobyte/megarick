@@ -8,7 +8,7 @@
   "animations": {
     "default": {
       "bounds": {
-        "rectangle": {
+        "quad": {
           "x": 0,
           "y": 0,
           "width": 32,
@@ -17,7 +17,7 @@
       },
       "frames": [
         {
-          "rectangle": {
+          "quad": {
             "x": 0,
             "y": 0,
             "width": 40,
@@ -26,7 +26,7 @@
           "duration": 100
         },
         {
-          "rectangle": {
+          "quad": {
             "x": 40,
             "y": 0,
             "width": 40,
@@ -35,7 +35,7 @@
           "duration": 60
         },
         {
-          "rectangle": {
+          "quad": {
             "x": 80,
             "y": 0,
             "width": 40,
@@ -44,7 +44,7 @@
           "duration": 60
         },
         {
-          "rectangle": {
+          "quad": {
             "x": 120,
             "y": 0,
             "width": 40,
@@ -53,7 +53,7 @@
           "duration": 60
         },
         {
-          "rectangle": {
+          "quad": {
             "x": 160,
             "y": 0,
             "width": 40,
@@ -62,7 +62,7 @@
           "duration": 60
         },
         {
-          "rectangle": {
+          "quad": {
             "x": 200,
             "y": 0,
             "width": 40,
@@ -71,7 +71,7 @@
           "duration": 80
         },
         {
-          "rectangle": {
+          "quad": {
             "x": 240,
             "y": 0,
             "width": 40,
