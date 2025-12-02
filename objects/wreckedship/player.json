@@ -1,19 +1,15 @@
 {
   "spritesheet": "blobs/player.png",
   "scale": 4,
-  "size": {
-    "width": 32,
-    "height": 32
-  },
-  "animations": {
+  "timelines": {
     "attack": {
       "frames": [
         {
           "quad": {
             "x": 1,
             "y": 1,
-            "width": 32,
-            "height": 32
+            "w": 32,
+            "h": 32
           },
           "duration": 120
         }
@@ -25,8 +21,8 @@
           "quad": {
             "x": 35,
             "y": 1,
-            "width": 32,
-            "height": 32
+            "w": 32,
+            "h": 32
           },
           "duration": 120
         }
@@ -38,8 +34,8 @@
           "quad": {
             "x": 69,
             "y": 1,
-            "width": 32,
-            "height": 32
+            "w": 32,
+            "h": 32
           },
           "duration": 120
         },
@@ -47,8 +43,8 @@
           "quad": {
             "x": 103,
             "y": 1,
-            "width": 32,
-            "height": 32
+            "w": 32,
+            "h": 32
           },
           "duration": 120
         },
@@ -56,8 +52,8 @@
           "quad": {
             "x": 137,
             "y": 1,
-            "width": 32,
-            "height": 32
+            "w": 32,
+            "h": 32
           },
           "duration": 120
         },
@@ -65,8 +61,8 @@
           "quad": {
             "x": 171,
             "y": 1,
-            "width": 32,
-            "height": 32
+            "w": 32,
+            "h": 32
           },
           "duration": 120
         }
@@ -78,8 +74,8 @@
           "quad": {
             "x": 205,
             "y": 1,
-            "width": 32,
-            "height": 32
+            "w": 32,
+            "h": 32
           },
           "duration": 120
         }
@@ -91,8 +87,8 @@
           "quad": {
             "x": 239,
             "y": 1,
-            "width": 32,
-            "height": 32
+            "w": 32,
+            "h": 32
           },
           "duration": 120
         },
@@ -100,8 +96,8 @@
           "quad": {
             "x": 273,
             "y": 1,
-            "width": 32,
-            "height": 32
+            "w": 32,
+            "h": 32
           },
           "duration": 120
         },
@@ -109,8 +105,8 @@
           "quad": {
             "x": 307,
             "y": 1,
-            "width": 32,
-            "height": 32
+            "w": 32,
+            "h": 32
           },
           "duration": 120
         }

@@ -1,18 +1,14 @@
 {
   "spritesheet": "blobs/bullet.png",
   "scale": 4,
-  "size": {
-    "width": 40,
-    "height": 40
-  },
-  "animations": {
+  "timelines": {
     "default": {
       "bounds": {
         "quad": {
           "x": 0,
           "y": 0,
-          "width": 32,
-          "height": 32
+          "w": 32,
+          "h": 32
         }
       },
       "frames": [
@@ -20,8 +16,8 @@
           "quad": {
             "x": 0,
             "y": 0,
-            "width": 40,
-            "height": 40
+            "w": 40,
+            "h": 40
           },
           "duration": 100
         },
@@ -29,8 +25,8 @@
           "quad": {
             "x": 40,
             "y": 0,
-            "width": 40,
-            "height": 40
+            "w": 40,
+            "h": 40
           },
           "duration": 60
         },
@@ -38,8 +34,8 @@
           "quad": {
             "x": 80,
             "y": 0,
-            "width": 40,
-            "height": 40
+            "w": 40,
+            "h": 40
           },
           "duration": 60
         },
@@ -47,8 +43,8 @@
           "quad": {
             "x": 120,
             "y": 0,
-            "width": 40,
-            "height": 40
+            "w": 40,
+            "h": 40
           },
           "duration": 60
         },
@@ -56,8 +52,8 @@
           "quad": {
             "x": 160,
             "y": 0,
-            "width": 40,
-            "height": 40
+            "w": 40,
+            "h": 40
           },
           "duration": 60
         },
@@ -65,8 +61,8 @@
           "quad": {
             "x": 200,
             "y": 0,
-            "width": 40,
-            "height": 40
+            "w": 40,
+            "h": 40
           },
           "duration": 80
         },
@@ -74,8 +70,8 @@
           "quad": {
             "x": 240,
             "y": 0,
-            "width": 40,
-            "height": 40
+            "w": 40,
+            "h": 40
           },
           "duration": -1
         }

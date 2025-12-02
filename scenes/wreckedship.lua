@@ -69,10 +69,10 @@ function scene.on_enter()
   pool.octopus.life = 14
   pool.octopus.placement = { x = 1200, y = 732 }
   pool.octopus.action = "idle"
-  pool.octopus:on_mail(function(self, message)
-    local behavior = behaviors[message]
-    if behavior then behavior(self) end
-  end)
+  -- pool.octopus:on_mail(function(self, message)
+  --   local behavior = behaviors[message]
+  --   if behavior then behavior(self) end
+  -- end)
 
   pool.octopus.life:subscribe(function(value)
     if next(segment_pool) then
@@ -93,61 +93,61 @@ function scene.on_enter()
   pool.player.placement = { x = 30, y = PLAYER_Y }
 
   local segment_matrix = scene:get("segment", SceneKind.object)
-  for i = 1, 14 do
-    local segment = objectmanager:clone(segment_matrix)
-    segment.action = "default"
-    segment.placement = { x = 1802, y = (i * 14) + 222 }
-    segment_pool[#segment_pool + 1] = segment
-  end
+  -- for i = 1, 14 do
+  --   local segment = objectmanager:clone(segment_matrix)
+  --   segment.action = "default"
+  --   segment.placement = { x = 1802, y = (i * 14) + 222 }
+  --   segment_pool[#segment_pool + 1] = segment
+  -- end
 
   local bullet_matrix = scene:get("bullet", SceneKind.object)
-  for i = 1, 3 do
-    local b = objectmanager:clone(bullet_matrix)
-    b.placement = OFF_BULLET
+  -- for i = 1, 3 do
+  --   local b = objectmanager:clone(bullet_matrix)
+  --   b.placement = OFF_BULLET
 
-    b:on_collision("octopus", function(self)
-      deactivate(self, OFF_BULLET)
-      postalservice:post(Mail.new(pool.octopus, self, "hit"))
-      remove_from(active_bullets, self)
-      push_unique(bullet_pool, self)
-    end)
+  --   b:on_collision("octopus", function(self)
+  --     deactivate(self, OFF_BULLET)
+  --     postalservice:post(Mail.new(pool.octopus, self, "hit"))
+  --     remove_from(active_bullets, self)
+  --     push_unique(bullet_pool, self)
+  --   end)
 
-    bullet_pool[#bullet_pool + 1] = b
-    bullets[#bullets + 1] = b
-  end
+  --   bullet_pool[#bullet_pool + 1] = b
+  --   bullets[#bullets + 1] = b
+  -- end
 
-  for i = 1, 9 do
-    local explosion = scene:get("explosion", SceneKind.object)
-    explosion.placement = OFF_BULLET
-    explosion:on_end(function(self)
-      deactivate(self, OFF_BULLET)
-      explosion_pool[#explosion_pool + 1] = self
-    end)
-    explosion_pool[#explosion_pool + 1] = explosion
-  end
+  -- for i = 1, 9 do
+  --   local explosion = scene:get("explosion", SceneKind.object)
+  --   explosion.placement = OFF_BULLET
+  --   explosion:on_end(function(self)
+  --     deactivate(self, OFF_BULLET)
+  --     explosion_pool[#explosion_pool + 1] = self
+  --   end)
+  --   explosion_pool[#explosion_pool + 1] = explosion
+  -- end
 
-  local jet_matrix = scene:get("jet", SceneKind.object)
-  for i = 1, 9 do
-    local jet = objectmanager:clone(jet_matrix)
-    jet.placement = OFF_JET
-    jet:on_collision("player", function(self)
-      deactivate(self, OFF_JET)
-      remove_from(active_jets, self)
-      jet_pool[#jet_pool + 1] = self
-    end)
-    jet_pool[#jet_pool + 1] = jet
-  end
+  -- local jet_matrix = scene:get("jet", SceneKind.object)
+  -- for i = 1, 9 do
+  --   local jet = objectmanager:clone(jet_matrix)
+  --   jet.placement = OFF_JET
+  --   jet:on_collision("player", function(self)
+  --     deactivate(self, OFF_JET)
+  --     remove_from(active_jets, self)
+  --     jet_pool[#jet_pool + 1] = self
+  --   end)
+  --   jet_pool[#jet_pool + 1] = jet
+  -- end
 end
 
 function scene.on_loop(delta)
   local moving = false
   if statemanager:player(Player.one):on(Controller.left) then
-    pool.player.reflection = Reflection.horizontal
+    pool.player.flip = Flip.horizontal
     pool.player.x = pool.player.x - 360 * delta
     moving = true
   end
   if statemanager:player(Player.one):on(Controller.right) then
-    pool.player.reflection = Reflection.none
+    pool.player.flip = Flip.none
     pool.player.x = pool.player.x + 360 * delta
     moving = true
   end

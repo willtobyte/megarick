@@ -7,8 +7,6 @@ _G.engine = EngineFactory.new()
   :with_fullscreen(true)
   :create()
 
-local scenemanager = engine:scenemanager()
-
 function setup()
   scenemanager:register("wreckedship")
   scenemanager:register("gameover")

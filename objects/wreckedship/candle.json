@@ -1,19 +1,15 @@
 {
   "spritesheet": "blobs/candle.png",
   "scale": 4,
-  "size": {
-    "width": 14,
-    "height": 31
-  },
-  "animations": {
+  "timelines": {
     "default": {
       "frames": [
         {
           "quad": {
             "x": 1,
             "y": 1,
-            "width": 14,
-            "height": 31
+            "w": 14,
+            "h": 31
           },
           "duration": 120
         },
@@ -21,8 +17,8 @@
           "quad": {
             "x": 1,
             "y": 34,
-            "width": 14,
-            "height": 31
+            "w": 14,
+            "h": 31
           },
           "duration": 120
         },
@@ -30,8 +26,8 @@
           "quad": {
             "x": 1,
             "y": 67,
-            "width": 14,
-            "height": 31
+            "w": 14,
+            "h": 31
           },
           "duration": 120
         }

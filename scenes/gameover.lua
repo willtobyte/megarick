@@ -2,10 +2,6 @@ local scene = {}
 
 local pool = {}
 
-local resourcemanager = engine:resourcemanager()
-
-local scenemanager = engine:scenemanager()
-
 function scene.on_enter()
   scenemanager:destroy("*")
 end

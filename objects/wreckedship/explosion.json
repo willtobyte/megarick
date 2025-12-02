@@ -1,11 +1,7 @@
 {
   "spritesheet": "blobs/explosion.png",
   "scale": 6,
-  "size": {
-    "width": 52,
-    "height": 72
-  },
-  "animations": {
+  "timelines": {
     "default": {
       "oneshot": true,
       "frames": [
@@ -13,8 +9,8 @@
           "quad": {
             "x": 1,
             "y": 1,
-            "width": 52,
-            "height": 72
+            "w": 52,
+            "h": 72
           },
           "duration": 120
         },
@@ -22,8 +18,8 @@
           "quad": {
             "x": 1,
             "y": 75,
-            "width": 52,
-            "height": 72
+            "w": 52,
+            "h": 72
           },
           "duration": 120
         },
@@ -31,8 +27,8 @@
           "quad": {
             "x": 1,
             "y": 149,
-            "width": 52,
-            "height": 72
+            "w": 52,
+            "h": 72
           },
           "duration": 120
         },
@@ -40,8 +36,8 @@
           "quad": {
             "x": 1,
             "y": 223,
-            "width": 52,
-            "height": 72
+            "w": 52,
+            "h": 72
           },
           "duration": 120
         },
@@ -49,8 +45,8 @@
           "quad": {
             "x": 1,
             "y": 297,
-            "width": 52,
-            "height": 72
+            "w": 52,
+            "h": 72
           },
           "duration": 120
         },
@@ -58,8 +54,8 @@
           "quad": {
             "x": 1,
             "y": 371,
-            "width": 52,
-            "height": 72
+            "w": 52,
+            "h": 72
           },
           "duration": 120,
           "singleshoot": true

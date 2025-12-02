@@ -1,19 +1,15 @@
 {
   "spritesheet": "blobs/princess.png",
   "scale": 4,
-  "size": {
-    "width": 18,
-    "height": 29
-  },
-  "animations": {
+  "timelines": {
     "default": {
       "frames": [
         {
           "quad": {
             "x": 1,
             "y": 1,
-            "width": 18,
-            "height": 29
+            "w": 18,
+            "h": 29
           },
           "duration": 120
         },
@@ -21,8 +17,8 @@
           "quad": {
             "x": 1,
             "y": 32,
-            "width": 18,
-            "height": 29
+            "w": 18,
+            "h": 29
           },
           "duration": 120
         },
@@ -30,8 +26,8 @@
           "quad": {
             "x": 1,
             "y": 63,
-            "width": 18,
-            "height": 29
+            "w": 18,
+            "h": 29
           },
           "duration": 120
         },
@@ -39,8 +35,8 @@
           "quad": {
             "x": 1,
             "y": 94,
-            "width": 18,
-            "height": 28
+            "w": 18,
+            "h": 28
           },
           "duration": 120
         }
