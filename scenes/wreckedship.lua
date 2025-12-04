@@ -31,7 +31,7 @@ end
 
 local function deactivate(obj, off)
   obj.action = nil
-  obj.placement = off
+  obj.position = off
   if obj.velocity and obj.velocity.x then obj.velocity.x = 0 end
 end
 
@@ -41,7 +41,7 @@ local behaviors = {
       local explosion = table.remove(explosion_pool)
       local offset_x = rand(-2, 2) * 30
       local offset_y = rand(-2, 2) * 30
-      explosion.placement = { x = pool.octopus.x + offset_x, y = pool.player.y + offset_y - 200 }
+      explosion.position = { x = pool.octopus.position.x + offset_x, y = pool.player.position.y + offset_y - 200 }
       explosion.action = "default"
 
       timermanager:singleshot(rand(100, 400), function()
@@ -53,7 +53,7 @@ local behaviors = {
         local step = 20
         local y = base + step * rand(math.floor(-range / step), math.floor(range / step))
         jet.action = "default"
-        jet.placement = { x, y }
+        jet.position = { x, y }
         jet.velocity = { x = -200 * rand(3, 6) }
         push_unique(active_jets, jet)
       end)
@@ -67,7 +67,7 @@ local behaviors = {
 function scene.on_enter()
   pool.octopus = scene:get("octopus", SceneKind.object)
   pool.octopus.life = 14
-  pool.octopus.placement = { x = 1200, y = 732 }
+  pool.octopus.position = { x = 1200, y = 732 }
   pool.octopus.action = "idle"
   -- pool.octopus:on_mail(function(self, message)
   --   local behavior = behaviors[message]
@@ -90,65 +90,66 @@ function scene.on_enter()
 
   pool.player = scene:get("player", SceneKind.object)
   pool.player.action = "idle"
-  pool.player.placement = { x = 30, y = PLAYER_Y }
+  pool.player.position = { x = 30, y = PLAYER_Y }
 
   local segment_matrix = scene:get("segment", SceneKind.object)
-  -- for i = 1, 14 do
-  --   local segment = objectmanager:clone(segment_matrix)
-  --   segment.action = "default"
-  --   segment.placement = { x = 1802, y = (i * 14) + 222 }
-  --   segment_pool[#segment_pool + 1] = segment
-  -- end
+  for i = 1, 14 do
+    local segment = segment_matrix:clone()
+    segment.action = "default"
+    segment.position = { x = 1802, y = (i * 14) + 222 }
+    segment_pool[#segment_pool + 1] = segment
+  end
 
   local bullet_matrix = scene:get("bullet", SceneKind.object)
-  -- for i = 1, 3 do
-  --   local b = objectmanager:clone(bullet_matrix)
-  --   b.placement = OFF_BULLET
+  for i = 1, 3 do
+    local b = bullet_matrix:clone()
+    b.position = OFF_BULLET
 
-  --   b:on_collision("octopus", function(self)
-  --     deactivate(self, OFF_BULLET)
-  --     postalservice:post(Mail.new(pool.octopus, self, "hit"))
-  --     remove_from(active_bullets, self)
-  --     push_unique(bullet_pool, self)
-  --   end)
+    -- b:on_collision("octopus", function(self)
+    --   deactivate(self, OFF_BULLET)
+    --   -- postalservice:post(Mail.new(pool.octopus, self, "hit"))
+    --   remove_from(active_bullets, self)
+    --   push_unique(bullet_pool, self)
+    -- end)
 
-  --   bullet_pool[#bullet_pool + 1] = b
-  --   bullets[#bullets + 1] = b
-  -- end
+    bullet_pool[#bullet_pool + 1] = b
+    bullets[#bullets + 1] = b
+  end
 
-  -- for i = 1, 9 do
-  --   local explosion = scene:get("explosion", SceneKind.object)
-  --   explosion.placement = OFF_BULLET
-  --   explosion:on_end(function(self)
-  --     deactivate(self, OFF_BULLET)
-  --     explosion_pool[#explosion_pool + 1] = self
-  --   end)
-  --   explosion_pool[#explosion_pool + 1] = explosion
-  -- end
+  for i = 1, 9 do
+    local explosion = scene:get("explosion", SceneKind.object)
+    explosion.position = OFF_BULLET
+    explosion:on_end(function(self)
+      deactivate(self, OFF_BULLET)
+      explosion_pool[#explosion_pool + 1] = self
+    end)
+    explosion_pool[#explosion_pool + 1] = explosion
+  end
 
-  -- local jet_matrix = scene:get("jet", SceneKind.object)
-  -- for i = 1, 9 do
-  --   local jet = objectmanager:clone(jet_matrix)
-  --   jet.placement = OFF_JET
-  --   jet:on_collision("player", function(self)
-  --     deactivate(self, OFF_JET)
-  --     remove_from(active_jets, self)
-  --     jet_pool[#jet_pool + 1] = self
-  --   end)
-  --   jet_pool[#jet_pool + 1] = jet
-  -- end
+  local jet_matrix = scene:get("jet", SceneKind.object)
+  for i = 1, 9 do
+    -- local jet = jet_matrix:clone()
+    -- jet.position = OFF_JET
+    -- jet:on_collision("player", function(self)
+    --   deactivate(self, OFF_JET)
+    --   remove_from(active_jets, self)
+    --   jet_pool[#jet_pool + 1] = self
+    -- end)
+    jet_pool[#jet_pool + 1] = jet
+  end
 end
 
 function scene.on_loop(delta)
   local moving = false
+  local pos = pool.player.position
   if statemanager:player(Player.one):on(Controller.left) then
     pool.player.flip = Flip.horizontal
-    pool.player.x = pool.player.x - 360 * delta
+    pool.player.position = { x = pos.x - 360 * delta, y = pos.y }
     moving = true
   end
   if statemanager:player(Player.one):on(Controller.right) then
     pool.player.flip = Flip.none
-    pool.player.x = pool.player.x + 360 * delta
+    pool.player.position = { x = pos.x + 360 * delta, y = pos.y }
     moving = true
   end
 
@@ -165,9 +166,9 @@ function scene.on_loop(delta)
     if #bullet_pool == 0 then return end
 
     local bullet = table.remove(bullet_pool)
-    local x = pool.player.x + 100
+    local x = pool.player.position.x + 100
     local y = FIRE_Y_BASE + rand(-2, 2) * FIRE_Y_STEP
-    bullet.placement = { x = x, y = y }
+    bullet.position = { x = x, y = y }
     bullet.action = "default"
 
     push_unique(active_bullets, bullet)
@@ -180,8 +181,9 @@ function scene.on_loop(delta)
 
   for i = #active_bullets, 1, -1 do
     local b = active_bullets[i]
-    b.x = b.x + 600 * delta
-    if b.x > pool.octopus.x + 256 then
+    local bpos = b.position
+    b.position = { x = bpos.x + 600 * delta, y = bpos.y }
+    if b.position.x > pool.octopus.position.x + 256 then
       deactivate(b, OFF_BULLET)
       table.remove(active_bullets, i)
       push_unique(bullet_pool, b)
@@ -190,8 +192,9 @@ function scene.on_loop(delta)
 
   for i = #active_jets, 1, -1 do
     local j = active_jets[i]
-    j.x = j.x - 1200 * delta
-    if j.x <= JET_OFF_X then
+    local jpos = j.position
+    j.position = { x = jpos.x - 1200 * delta, y = jpos.y }
+    if j.position.x <= JET_OFF_X then
       deactivate(j, OFF_JET)
       table.remove(active_jets, i)
       jet_pool[#jet_pool + 1] = j
