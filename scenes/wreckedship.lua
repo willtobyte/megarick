@@ -29,10 +29,10 @@ local function push_unique(list, item)
   list[#list + 1] = item
 end
 
-local function deactivate(obj, off)
-  obj.action = nil
-  obj.position = off
-  if obj.velocity and obj.velocity.x then obj.velocity.x = 0 end
+local function deactivate(object, off)
+  object.action = nil
+  object.position = off
+  if object.velocity and object.velocity.x then object.velocity.x = 0 end
 end
 
 local behaviors = {
