@@ -26,7 +26,7 @@ return {
     self.action = "attack"
     self.life = self.life - 1
 
-    local segment = pool.segments[14 - self.life]
+    local segment = pool.segments[self.life + 1]
     if segment then
       segment.visible = false
     end

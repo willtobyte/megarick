@@ -8,12 +8,12 @@
     { "kind": "bullet", "name": "bullet" },
     { "kind": "candle", "name": "candle1", "action": "default", "x": 220, "y": 140 },
     { "kind": "candle", "name": "candle2", "action": "default", "x": 1600, "y": 140 },
-    { "kind": "healthbar", "name": "healthbar", "action": "default", "x": 1798, "y": 300 },
     { "kind": "jet", "name": "jet" },
     { "kind": "octopus", "name": "octopus" },
     { "kind": "explosion", "name": "explosion" },
     { "kind": "player", "name": "player" },
     { "kind": "princess", "name": "princess", "action": "default", "x": 1600, "y": 840 },
-    { "kind": "segment", "name": "segment", "action": "default" }
+    { "kind": "healthbar", "name": "healthbar", "action": "default", "x": 1798, "y": 300 },
+    { "kind": "segment", "name": "segment", "action": "default", "x": -128, "y": -128 }
   ]
 }

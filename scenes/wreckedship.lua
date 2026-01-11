@@ -4,6 +4,8 @@ local PLAYER_Y = 834
 local rand = math.random
 
 local fire_pressed = false
+local bullet_velocity = {x = 800, y = 0}
+local zero_velocity = {x = 0, y = 0}
 
 local function cyclic(list)
   local index = 0
@@ -31,8 +33,9 @@ function scene.on_enter()
 
   for index = 1, 14 do
     local segment = pool.segment:clone()
-    segment.x = 1798
-    segment.y = 300 + (index - 1) * 10
+    segment.x = 1786 + 16
+    segment.y = 220 + 16 + (14 - index) * 14
+    segment.z = 1000 + index
     segments[index] = segment
   end
 
@@ -91,7 +94,7 @@ function scene.on_loop(delta)
       bullet.x = pool.player.x + 100
       bullet.y = 740 + rand(-2, 2) * 30
       bullet.action = "default"
-      bullet.velocity = {x = 800, y = 0}
+      bullet.velocity = bullet_velocity
     end
   elseif not fire then
     fire_pressed = false

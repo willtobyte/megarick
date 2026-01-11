@@ -1,19 +1,17 @@
 local ticker = {}
 local counters = {}
-local id = 0
-local to_remove = {}
-local to_remove_count = 0
+local count = 0
 
 function ticker.after(ticks, callback)
-  id = id + 1
-  counters[id] = { target = ticks, current = 0, callback = callback, once = true }
-  return id
+  count = count + 1
+  counters[count] = { target = ticks, current = 0, callback = callback, once = true }
+  return count
 end
 
 function ticker.every(ticks, callback)
-  id = id + 1
-  counters[id] = { target = ticks, current = 0, callback = callback, once = false }
-  return id
+  count = count + 1
+  counters[count] = { target = ticks, current = 0, callback = callback, once = false }
+  return count
 end
 
 function ticker.cancel(timer_id)
@@ -21,28 +19,34 @@ function ticker.cancel(timer_id)
 end
 
 function ticker.clear()
-  for key in pairs(counters) do
-    counters[key] = nil
-  end
-  id = 0
+  counters = {}
+  count = 0
 end
 
 function ticker.tick()
-  to_remove_count = 0
-  for tid, counter in pairs(counters) do
-    counter.current = counter.current + 1
-    if counter.current >= counter.target then
-      counter.callback()
-      if counter.once then
-        to_remove_count = to_remove_count + 1
-        to_remove[to_remove_count] = tid
+  local index = 1
+  while index <= count do
+    local counter = counters[index]
+    if counter then
+      counter.current = counter.current + 1
+      if counter.current >= counter.target then
+        counter.callback()
+        if counter.once then
+          counters[index] = counters[count]
+          counters[count] = nil
+          count = count - 1
+        else
+          counter.current = 0
+          index = index + 1
+        end
       else
-        counter.current = 0
+        index = index + 1
       end
+    else
+      counters[index] = counters[count]
+      counters[count] = nil
+      count = count - 1
     end
-  end
-  for index = 1, to_remove_count do
-    counters[to_remove[index]] = nil
   end
 end
 

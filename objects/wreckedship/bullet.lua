@@ -12,6 +12,6 @@ return {
     self.action = nil
     self.x = -128
     self.y = -128
-    self.velocity = {x = 0, y = 0}
+    self.velocity = zero_velocity
   end
 }
