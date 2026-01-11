@@ -1,27 +1,10 @@
 {
-  "spritesheet": "blobs/jet.png",
   "scale": 4,
   "timelines": {
     "default": {
       "frames": [
-        {
-          "quad": {
-            "x": 67,
-            "y": 1,
-            "w": 61,
-            "h": 20
-          },
-          "duration": 200
-        },
-        {
-          "quad": {
-            "x": 1,
-            "y": 1,
-            "w": 64,
-            "h": 20
-          },
-          "duration": 200
-        }
+        { "quad": { "x": 67, "y": 1, "w": 61, "h": 20 }, "duration": 200 },
+        { "quad": { "x": 1, "y": 1, "w": 64, "h": 20 }, "duration": 200 }
       ]
     }
   }

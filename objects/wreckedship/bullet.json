@@ -1,10 +1,9 @@
 {
-  "spritesheet": "blobs/bullet.png",
   "scale": 4,
   "timelines": {
     "default": {
-      "bounds": {
-        "quad": {
+      "hitbox": {
+        "aabb": {
           "x": 0,
           "y": 0,
           "w": 32,
@@ -12,69 +11,13 @@
         }
       },
       "frames": [
-        {
-          "quad": {
-            "x": 0,
-            "y": 0,
-            "w": 40,
-            "h": 40
-          },
-          "duration": 100
-        },
-        {
-          "quad": {
-            "x": 40,
-            "y": 0,
-            "w": 40,
-            "h": 40
-          },
-          "duration": 60
-        },
-        {
-          "quad": {
-            "x": 80,
-            "y": 0,
-            "w": 40,
-            "h": 40
-          },
-          "duration": 60
-        },
-        {
-          "quad": {
-            "x": 120,
-            "y": 0,
-            "w": 40,
-            "h": 40
-          },
-          "duration": 60
-        },
-        {
-          "quad": {
-            "x": 160,
-            "y": 0,
-            "w": 40,
-            "h": 40
-          },
-          "duration": 60
-        },
-        {
-          "quad": {
-            "x": 200,
-            "y": 0,
-            "w": 40,
-            "h": 40
-          },
-          "duration": 80
-        },
-        {
-          "quad": {
-            "x": 240,
-            "y": 0,
-            "w": 40,
-            "h": 40
-          },
-          "duration": -1
-        }
+        { "quad": { "x": 0, "y": 0, "w": 40, "h": 40 }, "duration": 100 },
+        { "quad": { "x": 40, "y": 0, "w": 40, "h": 40 }, "duration": 60 },
+        { "quad": { "x": 80, "y": 0, "w": 40, "h": 40 }, "duration": 60 },
+        { "quad": { "x": 120, "y": 0, "w": 40, "h": 40 }, "duration": 60 },
+        { "quad": { "x": 160, "y": 0, "w": 40, "h": 40 }, "duration": 60 },
+        { "quad": { "x": 200, "y": 0, "w": 40, "h": 40 }, "duration": 80 },
+        { "quad": { "x": 240, "y": 0, "w": 40, "h": 40 }, "duration": -1 }
       ]
     }
   }

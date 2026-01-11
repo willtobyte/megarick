@@ -1,230 +1,108 @@
 local scene = {}
 
-local pool, bullets, bullet_pool, explosion_pool, jet_pool, segment_pool, keystate = {}, {}, {}, {}, {}, {}, {}
-local timer = false
+local PLAYER_Y = 834
+local rand = math.random
 
-local OFF_BULLET   = { x = -128,  y = -128  }
-local OFF_JET      = { x = 3000,  y = 3000  }
-local JET_OFF_X    = -300
-local PLAYER_Y     = 834
-local FIRE_Y_BASE  = 740
-local FIRE_Y_STEP  = 30
-local rand         = math.random
+local fire_pressed = false
 
-local active_bullets, active_jets = {}, {}
-
-local function remove_from(list, item)
-  for i = #list, 1, -1 do
-    if list[i] == item then
-      table.remove(list, i)
-      return true
+local function cyclic(list)
+  local index = 0
+  return setmetatable(list, {
+    __call = function(self)
+      index = index % #self + 1
+      return self[index]
     end
-  end
+  })
 end
 
-local function push_unique(list, item)
-  for i = 1, #list do
-    if list[i] == item then return end
-  end
-  list[#list + 1] = item
-end
-
-local function deactivate(object, off)
-  object.action = nil
-  object.position = off
-  if object.velocity and object.velocity.x then object.velocity.x = 0 end
-end
-
-local behaviors = {
-  hit = function(self)
-    if #explosion_pool > 0 then
-      local explosion = table.remove(explosion_pool)
-      local offset_x = rand(-2, 2) * 30
-      local offset_y = rand(-2, 2) * 30
-      explosion.position = { x = pool.octopus.position.x + offset_x, y = pool.player.position.y + offset_y - 200 }
-      explosion.action = "default"
-
-      timermanager:singleshot(rand(100, 400), function()
-        if #jet_pool == 0 then return end
-        local jet = table.remove(jet_pool)
-        local x = 980
-        local base = 812
-        local range = 100
-        local step = 20
-        local y = base + step * rand(math.floor(-range / step), math.floor(range / step))
-        jet.action = "default"
-        jet.position = { x, y }
-        jet.velocity = { x = -200 * rand(3, 6) }
-        push_unique(active_jets, jet)
-      end)
-    end
-
-    self.action = "attack"
-    self.life = self.life.value - 1
-  end,
-}
+local bullets = cyclic({})
+local jets = cyclic({})
+local explosions = cyclic({})
+local segments = {}
 
 function scene.on_enter()
-  pool.octopus = scene:get("octopus", SceneKind.object)
-  pool.octopus.life = 14
-  pool.octopus.position = { x = 1200, y = 732 }
+  pool.octopus.x = 1200
+  pool.octopus.y = 732
   pool.octopus.action = "idle"
-  -- pool.octopus:on_mail(function(self, message)
-  --   local behavior = behaviors[message]
-  --   if behavior then behavior(self) end
-  -- end)
 
-  pool.octopus.life:subscribe(function(value)
-    if next(segment_pool) then
-      local segment = table.remove(segment_pool, 1)
-      objectmanager:remove(segment)
-    end
-    if value > 0 then return end
-    pool.octopus.action = "dead"
-    if timer then return end
-    timermanager:singleshot(3000, function()
-      scenemanager:set("gameover")
-    end)
-    timer = true
-  end)
-
-  pool.player = scene:get("player", SceneKind.object)
   pool.player.action = "idle"
-  pool.player.position = { x = 30, y = PLAYER_Y }
+  pool.player.x = 30
+  pool.player.y = PLAYER_Y
 
-  local segment_matrix = scene:get("segment", SceneKind.object)
-  for i = 1, 14 do
-    local segment = segment_matrix:clone()
-    segment.action = "default"
-    segment.position = { x = 1802, y = (i * 14) + 222 }
-    segment_pool[#segment_pool + 1] = segment
+  for index = 1, 14 do
+    local segment = pool.segment:clone()
+    segment.x = 1798
+    segment.y = 300 + (index - 1) * 10
+    segments[index] = segment
   end
 
-  local bullet_matrix = scene:get("bullet", SceneKind.object)
-  for i = 1, 3 do
-    local b = bullet_matrix:clone()
-    b.position = OFF_BULLET
-
-    -- b:on_collision("octopus", function(self)
-    --   deactivate(self, OFF_BULLET)
-    --   -- postalservice:post(Mail.new(pool.octopus, self, "hit"))
-    --   remove_from(active_bullets, self)
-    --   push_unique(bullet_pool, self)
-    -- end)
-
-    bullet_pool[#bullet_pool + 1] = b
-    bullets[#bullets + 1] = b
+  for index = 1, 3 do
+    local bullet = pool.bullet:clone()
+    bullet.x = -128
+    bullet.y = -128
+    bullets[index] = bullet
   end
 
-  for i = 1, 9 do
-    local explosion = scene:get("explosion", SceneKind.object)
-    explosion.position = OFF_BULLET
-    explosion:on_end(function(self)
-      deactivate(self, OFF_BULLET)
-      explosion_pool[#explosion_pool + 1] = self
-    end)
-    explosion_pool[#explosion_pool + 1] = explosion
+  for index = 1, 9 do
+    local jet = pool.jet:clone()
+    jet.x = 3000
+    jet.y = 3000
+    jets[index] = jet
   end
 
-  local jet_matrix = scene:get("jet", SceneKind.object)
-  for i = 1, 9 do
-    -- local jet = jet_matrix:clone()
-    -- jet.position = OFF_JET
-    -- jet:on_collision("player", function(self)
-    --   deactivate(self, OFF_JET)
-    --   remove_from(active_jets, self)
-    --   jet_pool[#jet_pool + 1] = self
-    -- end)
-    jet_pool[#jet_pool + 1] = jet
+  for index = 1, 6 do
+    local explosion = pool.explosion:clone()
+    explosion.x = -128
+    explosion.y = -128
+    explosions[index] = explosion
   end
+
+  pool.jets = jets
+  pool.explosions = explosions
+  pool.segments = segments
 end
 
 function scene.on_loop(delta)
   local moving = false
-  local pos = pool.player.position
+
   if statemanager:player(Player.one):on(Controller.left) then
     pool.player.flip = Flip.horizontal
-    pool.player.position = { x = pos.x - 360 * delta, y = pos.y }
+    pool.player.x = pool.player.x - 360 * delta
     moving = true
   end
+
   if statemanager:player(Player.one):on(Controller.right) then
     pool.player.flip = Flip.none
-    pool.player.position = { x = pos.x + 360 * delta, y = pos.y }
+    pool.player.x = pool.player.x + 360 * delta
     moving = true
   end
 
-  if not moving and pool.player.action ~= "idle" then
-    pool.player.action = "idle"
-  elseif moving and pool.player.action ~= "run" then
+  if moving and pool.player.action ~= "run" then
     pool.player.action = "run"
+  elseif not moving and pool.player.action ~= "idle" then
+    pool.player.action = "idle"
   end
 
-  local press = statemanager:player(Player.one):on(Controller.south)
-  if press and not keystate[Controller.south] then
-    keystate[Controller.south] = true
-    if pool.octopus.life.value <= 0 then return end
-    if #bullet_pool == 0 then return end
-
-    local bullet = table.remove(bullet_pool)
-    local x = pool.player.position.x + 100
-    local y = FIRE_Y_BASE + rand(-2, 2) * FIRE_Y_STEP
-    bullet.position = { x = x, y = y }
-    bullet.action = "default"
-
-    push_unique(active_bullets, bullet)
-
-    local sound = "bomb" .. rand(1, 2)
-    local sfx = scene:get(sound, SceneKind.effect)
-    sfx:play()
-  end
-  if not press then keystate[Controller.south] = false end
-
-  for i = #active_bullets, 1, -1 do
-    local b = active_bullets[i]
-    local bpos = b.position
-    b.position = { x = bpos.x + 600 * delta, y = bpos.y }
-    if b.position.x > pool.octopus.position.x + 256 then
-      deactivate(b, OFF_BULLET)
-      table.remove(active_bullets, i)
-      push_unique(bullet_pool, b)
+  local fire = statemanager:player(Player.one):on(Controller.south)
+  if fire and not fire_pressed then
+    fire_pressed = true
+    if pool.octopus.life > 0 then
+      local bullet = bullets()
+      bullet.x = pool.player.x + 100
+      bullet.y = 740 + rand(-2, 2) * 30
+      bullet.action = "default"
+      bullet.velocity = {x = 800, y = 0}
     end
-  end
-
-  for i = #active_jets, 1, -1 do
-    local j = active_jets[i]
-    local jpos = j.position
-    j.position = { x = jpos.x - 1200 * delta, y = jpos.y }
-    if j.position.x <= JET_OFF_X then
-      deactivate(j, OFF_JET)
-      table.remove(active_jets, i)
-      jet_pool[#jet_pool + 1] = j
-    end
+  elseif not fire then
+    fire_pressed = false
   end
 end
 
 function scene.on_leave()
-  timer = nil
-
-  local function clear(t)
-    for i = #t, 1, -1 do t[i] = nil end
-  end
-
-  clear(active_bullets)
-  clear(active_jets)
-  clear(bullets)
-  clear(bullet_pool)
-  clear(explosion_pool)
-  clear(jet_pool)
-  clear(segment_pool)
-
-  for key in next, keystate do
-    keystate[key] = nil
-  end
-  for key in next, pool do
-    pool[key] = nil
-  end
+  fire_pressed = false
 end
 
+ticker.wrap(scene)
 sentinel(scene, "wreckedship")
 
 return scene

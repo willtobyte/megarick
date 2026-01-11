@@ -1,45 +1,12 @@
 {
-  "spritesheet": "blobs/princess.png",
   "scale": 4,
   "timelines": {
     "default": {
       "frames": [
-        {
-          "quad": {
-            "x": 1,
-            "y": 1,
-            "w": 18,
-            "h": 29
-          },
-          "duration": 120
-        },
-        {
-          "quad": {
-            "x": 1,
-            "y": 32,
-            "w": 18,
-            "h": 29
-          },
-          "duration": 120
-        },
-        {
-          "quad": {
-            "x": 1,
-            "y": 63,
-            "w": 18,
-            "h": 29
-          },
-          "duration": 120
-        },
-        {
-          "quad": {
-            "x": 1,
-            "y": 94,
-            "w": 18,
-            "h": 28
-          },
-          "duration": 120
-        }
+        { "quad": { "x": 1, "y": 1, "w": 18, "h": 29 }, "duration": 120 },
+        { "quad": { "x": 1, "y": 32, "w": 18, "h": 29 }, "duration": 120 },
+        { "quad": { "x": 1, "y": 63, "w": 18, "h": 29 }, "duration": 120 },
+        { "quad": { "x": 1, "y": 94, "w": 18, "h": 28 }, "duration": 120 }
       ]
     }
   }

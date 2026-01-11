@@ -1,36 +1,11 @@
 {
-  "spritesheet": "blobs/candle.png",
   "scale": 4,
   "timelines": {
     "default": {
       "frames": [
-        {
-          "quad": {
-            "x": 1,
-            "y": 1,
-            "w": 14,
-            "h": 31
-          },
-          "duration": 120
-        },
-        {
-          "quad": {
-            "x": 1,
-            "y": 34,
-            "w": 14,
-            "h": 31
-          },
-          "duration": 120
-        },
-        {
-          "quad": {
-            "x": 1,
-            "y": 67,
-            "w": 14,
-            "h": 31
-          },
-          "duration": 120
-        }
+        { "quad": { "x": 1, "y": 1, "w": 14, "h": 31 }, "duration": 120 },
+        { "quad": { "x": 1, "y": 34, "w": 14, "h": 31 }, "duration": 120 },
+        { "quad": { "x": 1, "y": 67, "w": 14, "h": 31 }, "duration": 120 }
       ]
     }
   }

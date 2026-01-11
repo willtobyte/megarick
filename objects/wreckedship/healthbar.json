@@ -1,18 +1,9 @@
 {
-  "spritesheet": "blobs/healthbar.png",
   "scale": 4,
   "timelines": {
     "default": {
       "frames": [
-        {
-          "quad": {
-            "x": 0,
-            "y": 0,
-            "w": 16,
-            "h": 56
-          },
-          "duration": -1
-        }
+        { "quad": { "x": 0, "y": 0, "w": 16, "h": 56 }, "duration": -1 }
       ]
     }
   }
