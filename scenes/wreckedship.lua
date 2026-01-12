@@ -1,27 +1,10 @@
 local scene = {}
 
 local PLAYER_Y = 834
-local rand = math.random
 
-local fire_pressed = false
-local bullet_velocity = {x = 800, y = 0}
-local zero_velocity = {x = 0, y = 0}
-
-local player1 = gamepads[Player.one]
-
-local function cyclic(list)
-  local index = 0
-  return setmetatable(list, {
-    __call = function(self)
-      index = index % #self + 1
-      return self[index]
-    end
-  })
-end
-
-local bullets = cyclic({})
-local jets = cyclic({})
-local explosions = cyclic({})
+local bullets = {}
+local jets = {}
+local explosions = {}
 local segments = {}
 
 function scene.on_enter()
@@ -62,54 +45,10 @@ function scene.on_enter()
     explosions[index] = explosion
   end
 
+  pool.bullets = bullets
   pool.jets = jets
   pool.explosions = explosions
   pool.segments = segments
-end
-
-function scene.on_loop(delta)
-  player1:open()
-
-  local left = keyboard.left or keyboard.a or player1:button(GamepadButton.left)
-  local right = keyboard.right or keyboard.d or player1:button(GamepadButton.right)
-  local moving = false
-
-  if left then
-    pool.player.flip = Flip.horizontal
-    pool.player.x = pool.player.x - 360 * delta
-    moving = true
-  end
-
-  if right then
-    pool.player.flip = Flip.none
-    pool.player.x = pool.player.x + 360 * delta
-    moving = true
-  end
-
-  if moving and pool.player.action ~= "run" then
-    pool.player.action = "run"
-  elseif not moving and pool.player.action ~= "idle" then
-    pool.player.action = "idle"
-  end
-
-  local fire = keyboard.space or player1:button(GamepadButton.a)
-  if fire and not fire_pressed then
-    fire_pressed = true
-    if pool.octopus.life > 0 then
-      pool["bomb" .. rand(1, 2)]:play()
-      local bullet = bullets()
-      bullet.x = pool.player.x + 100
-      bullet.y = 740 + rand(-2, 2) * 30
-      bullet.action = "default"
-      bullet.velocity = bullet_velocity
-    end
-  elseif not fire then
-    fire_pressed = false
-  end
-end
-
-function scene.on_leave()
-  fire_pressed = false
 end
 
 ticker.wrap(scene)
