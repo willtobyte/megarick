@@ -1,8 +1,8 @@
 return {
   on_loop = function(delta)
-    if self.x <= -300 then
-      self.x = 3000
-      self.y = 3000
+    if self.x <= constants.JET_DESPAWN_X then
+      self.x = constants.FAR_DESPAWN_X
+      self.y = constants.FAR_DESPAWN_Y
       self.velocity = zero_velocity
     end
   end

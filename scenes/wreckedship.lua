@@ -1,54 +1,50 @@
 local scene = {}
 
-local PLAYER_Y = 834
-
 local bullets = {}
 local jets = {}
 local explosions = {}
 local segments = {}
 
-
 function scene.on_enter()
-  pool.octopus.x = 1200
-  pool.octopus.y = 732
+  pool.octopus.x = constants.OCTOPUS_X
+  pool.octopus.y = constants.OCTOPUS_Y
   pool.octopus.action = "idle"
 
   pool.player.action = "idle"
-  pool.player.x = 30
-  pool.player.y = PLAYER_Y
+  pool.player.x = constants.PLAYER_START_X
+  pool.player.y = constants.PLAYER_Y
 
-  for index = 1, 14 do
+  for index = 1, constants.SEGMENT_COUNT do
     local segment = pool.segment:clone()
-    segment.x = 1786 + 16
-    segment.y = 220 + 16 + (14 - index) * 14
+    segment.x = constants.SEGMENT_BASE_X
+    segment.y = constants.SEGMENT_BASE_Y + (constants.SEGMENT_COUNT - index) * constants.SEGMENT_SPACING
     segment.z = 1000 + index
     segment.threshold = index
     segments[index] = segment
   end
 
-  for index = 1, 3 do
+  for index = 1, constants.BULLET_POOL_SIZE do
     local bullet = pool.bullet:clone()
-    bullet.x = -128
-    bullet.y = -128
+    bullet.x = constants.DESPAWN_X
+    bullet.y = constants.DESPAWN_Y
     bullets[index] = bullet
   end
 
-  for index = 1, 9 do
+  for index = 1, constants.JET_POOL_SIZE do
     local jet = pool.jet:clone()
-    jet.x = 3000
-    jet.y = 3000
+    jet.x = constants.FAR_DESPAWN_X
+    jet.y = constants.FAR_DESPAWN_Y
     jets[index] = jet
   end
 
-  for index = 1, 6 do
+  for index = 1, constants.EXPLOSION_POOL_SIZE do
     local explosion = pool.explosion:clone()
-    explosion.x = -128
-    explosion.y = -128
+    explosion.x = constants.DESPAWN_X
+    explosion.y = constants.DESPAWN_Y
     explosions[index] = explosion
   end
 
   pool.segments = segments
-
   pool.bullet = cyclic(bullets)
   pool.jet = cyclic(jets)
   pool.explosion = cyclic(explosions)

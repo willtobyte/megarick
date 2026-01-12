@@ -1,7 +1,3 @@
-local SPEED = 360
-local BULLET_VELOCITY = {x = 800, y = 0}
-
-local rand = math.random
 local player1 = gamepads[Player.one]
 local fire_pressed = false
 
@@ -13,13 +9,13 @@ return {
 
     if left then
       self.flip = Flip.horizontal
-      self.x = self.x - SPEED * delta
+      self.x = self.x - constants.PLAYER_SPEED * delta
       moving = true
     end
 
     if right then
       self.flip = Flip.none
-      self.x = self.x + SPEED * delta
+      self.x = self.x + constants.PLAYER_SPEED * delta
       moving = true
     end
 
@@ -35,10 +31,10 @@ return {
       if pool.octopus.life > 0 then
         pool["bomb" .. rand(1, 2)]:play()
         local bullet = pool.bullet()
-        bullet.x = self.x + 100
-        bullet.y = 740 + rand(-2, 2) * 30
+        bullet.x = self.x + constants.PLAYER_BULLET_OFFSET_X
+        bullet.y = constants.BULLET_BASE_Y + rand(-2, 2) * constants.BULLET_Y_VARIANCE
         bullet.action = "default"
-        bullet.velocity = BULLET_VELOCITY
+        bullet.velocity = {x = constants.BULLET_VELOCITY_X, y = 0}
       end
     elseif not fire then
       fire_pressed = false
