@@ -13,6 +13,7 @@ return {
     local explosion = pool.explosions()
     explosion.x = self.x + rand(-2, 2) * 30
     explosion.y = pool.player.y + rand(-2, 2) * 30 - 200
+    explosion.z = self.z + 1
     explosion.action = "default"
 
     ticker.after(rand(1, 4), function()
