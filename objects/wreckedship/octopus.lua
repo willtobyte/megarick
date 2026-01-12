@@ -6,18 +6,19 @@ return {
   end,
 
   on_damage = function()
-    if self.life <= 0 then
+    local life = self.life
+    if life <= 0 then
       return
     end
 
-    local explosion = pool.explosions()
+    local explosion = pool.explosion()
     explosion.x = self.x + rand(-2, 2) * 30
     explosion.y = pool.player.y + rand(-2, 2) * 30 - 200
     explosion.z = self.z + 1
     explosion.action = "default"
 
     ticker.after(rand(1, 4), function()
-      local jet = pool.jets()
+      local jet = pool.jet()
       jet.action = "default"
       jet.x = 980
       jet.y = 812 + 20 * rand(-5, 5)
@@ -25,14 +26,14 @@ return {
     end)
 
     self.action = "attack"
-    self.life = self.life - 1
+    local new_life = life - 1
+    self.life = new_life
 
-    local segment = pool.segments[self.life + 1]
-    if segment then
-      segment.visible = false
+    for _, segment in ipairs(pool.segments) do
+      segment.life = new_life
     end
 
-    if self.life > 0 then
+    if new_life > 0 then
       return
     end
 

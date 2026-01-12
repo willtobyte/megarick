@@ -7,6 +7,7 @@ local jets = {}
 local explosions = {}
 local segments = {}
 
+
 function scene.on_enter()
   pool.octopus.x = 1200
   pool.octopus.y = 732
@@ -21,6 +22,7 @@ function scene.on_enter()
     segment.x = 1786 + 16
     segment.y = 220 + 16 + (14 - index) * 14
     segment.z = 1000 + index
+    segment.threshold = index
     segments[index] = segment
   end
 
@@ -45,10 +47,11 @@ function scene.on_enter()
     explosions[index] = explosion
   end
 
-  pool.bullets = bullets
-  pool.jets = jets
-  pool.explosions = explosions
   pool.segments = segments
+
+  pool.bullet = cyclic(bullets)
+  pool.jet = cyclic(jets)
+  pool.explosion = cyclic(explosions)
 end
 
 ticker.wrap(scene)

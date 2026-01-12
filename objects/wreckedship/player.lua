@@ -4,7 +4,6 @@ local BULLET_VELOCITY = {x = 800, y = 0}
 local rand = math.random
 local player1 = gamepads[Player.one]
 local fire_pressed = false
-local bullet_index = 0
 
 return {
   on_loop = function(delta)
@@ -35,8 +34,7 @@ return {
       fire_pressed = true
       if pool.octopus.life > 0 then
         pool["bomb" .. rand(1, 2)]:play()
-        bullet_index = bullet_index % #pool.bullets + 1
-        local bullet = pool.bullets[bullet_index]
+        local bullet = pool.bullet()
         bullet.x = self.x + 100
         bullet.y = 740 + rand(-2, 2) * 30
         bullet.action = "default"
