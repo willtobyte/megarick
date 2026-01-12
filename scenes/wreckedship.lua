@@ -96,6 +96,7 @@ function scene.on_loop(delta)
   if fire and not fire_pressed then
     fire_pressed = true
     if pool.octopus.life > 0 then
+      pool["bomb" .. rand(1, 2)]:play()
       local bullet = bullets()
       bullet.x = pool.player.x + 100
       bullet.y = 740 + rand(-2, 2) * 30

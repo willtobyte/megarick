@@ -7,7 +7,6 @@ return {
     end
 
     pool.octopus:damage()
-    pool["bomb" .. rand(1, 2)]:play()
 
     self.action = nil
     self.x = -128
