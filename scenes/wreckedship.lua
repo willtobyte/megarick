@@ -7,6 +7,8 @@ local fire_pressed = false
 local bullet_velocity = {x = 800, y = 0}
 local zero_velocity = {x = 0, y = 0}
 
+local player1 = gamepads[Player.one]
+
 local function cyclic(list)
   local index = 0
   return setmetatable(list, {
@@ -66,15 +68,19 @@ function scene.on_enter()
 end
 
 function scene.on_loop(delta)
+  player1:open()
+
+  local left = keyboard.left or keyboard.a or player1:button(GamepadButton.left)
+  local right = keyboard.right or keyboard.d or player1:button(GamepadButton.right)
   local moving = false
 
-  if statemanager:player(Player.one):on(Controller.left) then
+  if left then
     pool.player.flip = Flip.horizontal
     pool.player.x = pool.player.x - 360 * delta
     moving = true
   end
 
-  if statemanager:player(Player.one):on(Controller.right) then
+  if right then
     pool.player.flip = Flip.none
     pool.player.x = pool.player.x + 360 * delta
     moving = true
@@ -86,7 +92,7 @@ function scene.on_loop(delta)
     pool.player.action = "idle"
   end
 
-  local fire = statemanager:player(Player.one):on(Controller.south)
+  local fire = keyboard.space or player1:button(GamepadButton.a)
   if fire and not fire_pressed then
     fire_pressed = true
     if pool.octopus.life > 0 then
