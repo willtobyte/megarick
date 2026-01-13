@@ -27,10 +27,6 @@ return {
     local new_life = life - 1
     self.life = new_life
 
-    for _, segment in ipairs(pool.segments) do
-      segment.life = new_life
-    end
-
     if new_life > 0 then
       return
     end

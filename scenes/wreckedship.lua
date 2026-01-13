@@ -14,6 +14,8 @@ function scene.on_enter()
   pool.player.x = constants.PLAYER_START_X
   pool.player.y = constants.PLAYER_Y
 
+  pool.segment.threshold = 0
+
   for index = 1, constants.SEGMENT_COUNT do
     local segment = pool.segment:clone()
     segment.x = constants.SEGMENT_BASE_X
