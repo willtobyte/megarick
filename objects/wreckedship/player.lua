@@ -1,10 +1,10 @@
-local player1 = gamepads[Player.one]
+local player = gamepads[Player.one]
 local fire_pressed = false
 
 return {
   on_loop = function(delta)
-    local left = keyboard.left or keyboard.a or player1:button(GamepadButton.left)
-    local right = keyboard.right or keyboard.d or player1:button(GamepadButton.right)
+    local left = keyboard.left or keyboard.a or player:button(GamepadButton.left)
+    local right = keyboard.right or keyboard.d or player:button(GamepadButton.right)
     local moving = false
 
     if left then
@@ -25,7 +25,7 @@ return {
       self.action = "idle"
     end
 
-    local fire = keyboard.space or player1:button(GamepadButton.a)
+    local fire = keyboard.space or player:button(GamepadButton.south)
     if fire and not fire_pressed then
       fire_pressed = true
       if pool.octopus.life > 0 then

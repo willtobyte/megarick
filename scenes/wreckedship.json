@@ -3,7 +3,7 @@
   "width": 1920,
   "height": 1080,
   "layer": { "type": "background" },
-  "effects": ["bomb1", "bomb2"],
+  "sounds": ["bomb1", "bomb2"],
   "objects": [
     { "kind": "bullet", "name": "bullet" },
     { "kind": "candle", "name": "candle1", "action": "default", "x": 220, "y": 140 },
